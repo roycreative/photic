@@ -7,38 +7,16 @@
 </head>
 <body>
   <div id="mocha"></div>
-  <script src="lib/mocha/mocha.js"></script>
-  <script>mocha.setup('bdd')</script>
 
   <!-- assertion framework -->
-  
+  <script src="lib/mocha/mocha.js"></script>
+  <script>mocha.setup('bdd')</script>
   <script src="lib/chai.js"></script>
     
-      
-  <script>expect = chai.expect</script>
-      
-    
-  
-
-  <!-- -->
-
   <!-- include source files here... -->
 
   <!-- include spec files here... -->
-  <script>
-  // replace this by your own specs
-  (function() {
-    describe('Give it some context', function() {
-      describe('maybe a bit more context here', function() {
-
-        it('should run here few assertions', function() {
-
-        });
-
-      });
-    });
-  })();
-  </script>
+  <script src="spec/unit.js"></script>
 
   <!-- trigger the mocha runner -->
   <script src="runner/mocha.js"></script>
