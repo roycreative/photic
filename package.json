@@ -1,7 +1,13 @@
 {
-  "author": "",
-  "name": "",
+  "author": "wamberg <wamberg@technushi.com>",
+  "name": "photic",
   "version": "0.0.0",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "backbone": "0.9.9",
+    "jquery": "1.8.3",
+    "requirejs": "2.1.2",
+    "underscore": "1.4.3"
+  },
+  "devDependencies": {},
+  "license": "MIT"
 }
