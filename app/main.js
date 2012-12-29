@@ -1,17 +1,22 @@
 require.config({
   paths: {
+    backbone: 'components/backbone/backbone',
+    handlebars: 'components/handlebars/handlebars-1.0.0-rc.1',
     jquery: 'components/jquery/jquery',
-    underscore: 'components/underscore/underscore',
-    backbone: 'components/backbone/backbone'
+    text: 'components/requirejs-text/text',
+    underscore: 'components/underscore/underscore'
   },
 
   shim: {
-    underscore: {
-      exports: '_'
-    },
     backbone: {
       deps: ['underscore', 'jquery'],
       exports: 'Backbone'
+    },
+    handlebars: {
+      exports: 'Handlebars'
+    },
+    underscore: {
+      exports: '_'
     }
   }
 });

@@ -1,7 +1,6 @@
-define(['jquery', 'underscore', 'backbone'],
-       function() {
-    console.log('global jQuery', $);
-    console.log('global underscore', _);
-    console.log('global Backbone', Backbone);
+define(['jquery', 'underscore', 'backbone', 'scripts/views/photic-view'],
+       function($, _, Backbone, photicView) {
+         var photic = new photicView.View();
+         photic.render();
   }
 );
