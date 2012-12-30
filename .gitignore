@@ -1,5 +1,5 @@
 temp
 dist
 components/*
-app/components/*
+app/scripts/components/*
 .sass-cache/*
