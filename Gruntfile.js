@@ -12,7 +12,7 @@ module.exports = function( grunt ) {
 
     // specify an alternate install location for Bower
     bower: {
-      dir: 'app/components'
+      dir: 'app/scripts/components'
     },
 
     // Coffee to JS compilation
@@ -80,6 +80,7 @@ module.exports = function( grunt ) {
       files: [
         'Gruntfile.js',
         'app/scripts/**/*.js',
+        '!app/scripts/components/**/*.js',
         'spec/**/*.js'
       ]
     },
@@ -143,14 +144,23 @@ module.exports = function( grunt ) {
 
     // update references in HTML/CSS to revved files
     usemin: {
-      html: ['**/*.html'],
-      css: ['**/*.css']
+      html: [
+        '**/*.html',
+        '!scripts/components/**/*.html',
+        '!components/**/*.html'
+      ],
+      css: [
+        '**/*.css',
+        '!scripts/components/**/*.css',
+        '!components/**/*.css'
+      ]
     },
 
     // HTML minification
-    html: {
-      files: ['**/*.html']
-    },
+    html: [
+      '**/*.html',
+      '!scripts/components/**/*.html'
+    ],
 
     // Optimizes JPGs and PNGs (with jpegtran & optipng)
     img: {

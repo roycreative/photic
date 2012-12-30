@@ -1,5 +1,5 @@
 define(
-  ['exports', 'backbone', 'handlebars', 'text!scripts/templates/photic.html'],
+  ['exports', 'backbone', 'handlebars', 'text!templates/photic.html'],
   function (photic, Backbone, Handlebars, photicTemplate) {
     photic.View = Backbone.View.extend({
       el: '#slideshow',

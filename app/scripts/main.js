@@ -21,6 +21,6 @@ require.config({
   }
 });
 
-require(['scripts/app'], function(app) {
+require(['app'], function(app) {
   // use app here
 });
