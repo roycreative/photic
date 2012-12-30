@@ -1,5 +1,13 @@
-photic.Collections.SlidesCollection = Backbone.Collection.extend({
+define(
+  ['backbone'],
+  function(Backbone) {
 
-  model: photic.Models.SlideModel
+    var SlidesCollection = Backbone.Collection.extend({
 
-});
+      model: photic.Models.SlideModel
+
+    });
+
+    return SlidesCollection;
+  }
+);

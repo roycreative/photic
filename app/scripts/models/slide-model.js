@@ -1,3 +1,11 @@
-photic.Models.SlideModel = Backbone.Model.extend({
+define(
+  ['backbone'],
+  function(Backbone) {
 
-});
+    var SlideModel = Backbone.Model.extend({
+    });
+
+    return SlideModel;
+  }
+);
+

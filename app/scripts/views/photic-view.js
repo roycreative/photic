@@ -1,8 +1,11 @@
 define(
   ['backbone', 'handlebars', 'text!templates/photic.html'],
   function (Backbone, Handlebars, photicTemplate) {
+
     var PhoticView = Backbone.View.extend({
-      el: '#slideshow',
+
+      el: '#photic',
+
       render: function() {
         var self = this;
         var template = Handlebars.compile(photicTemplate);
@@ -10,6 +13,7 @@ define(
         return this;
       }
     });
+
     return PhoticView;
   }
 );
