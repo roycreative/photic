@@ -1,5 +1,6 @@
 define(['models/slide-model', 'chai', 'mocha'], function(SlideModel, chai) {
-  var unitTests = function() {
+  var tests = function() {
+
     assert = chai.assert;
 
     describe('SlideModel', function() {
@@ -18,5 +19,5 @@ define(['models/slide-model', 'chai', 'mocha'], function(SlideModel, chai) {
 
   };
 
-  return unitTests;
+  return tests
 });
