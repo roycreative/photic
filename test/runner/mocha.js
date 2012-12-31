@@ -1,4 +1,4 @@
-define(['unit', 'mocha'], function(unit) {
+define(['spec/unit', 'mocha'], function(unit) {
   var mochaRunner = function () {
     unit();
     var runner = mocha.run();

@@ -8,7 +8,7 @@ require.config({
     underscore: 'components/underscore/underscore',
     chai: "../../test/lib/chai",
     mocha: "../../test/lib/mocha/mocha",
-    unit: "../../test/spec/unit",
+    spec: "../../test/spec",
     runner: "../../test/runner/mocha"
   },
 
