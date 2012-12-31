@@ -21,9 +21,12 @@ require.config({
     handlebars: {
       exports: 'Handlebars'
     },
+    jquery: {
+      exports: '$'
+    },
     mocha: {
       init: function() {
-        this.mocha.setup('bdd');
+        this.mocha.setup({ui: 'bdd', ignoreLeaks: true});
         return this.mocha;
       }
     },

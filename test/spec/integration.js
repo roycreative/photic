@@ -1,10 +1,11 @@
 define(
-  ['routes/photic-router', 'chai', 'mocha', 'jquery'],
+  ['routes/photic-router', 'chai', 'mocha', 'jquery', 'backbone'],
   function(PhoticRouter, chai) {
     var tests = function() {
 
       assert = chai.assert;
 
+      // router tests
       describe('Photic Router', function() {
 
         var router;
@@ -26,8 +27,32 @@ define(
         });
       });
 
+      // photic view tests
+      describe('Photic View', function() {
+
+        var router;
+
+        beforeEach(function() {
+          router = new PhoticRouter();
+          Backbone.history.start({silent: true});
+          // change Backbone.history.fragment so subsequent 
+          // calls to router.navigate run as expected
+          Backbone.history.loadUrl('dummy/'); 
+        });
+
+        afterEach(function() {
+          Backbone.history.stop();
+        });
+
+        it('renders', function() {
+          router.navigate('', {trigger: true});
+          assert.lengthOf($('.slideshow'), 1, '.slideshow created');
+        });
+
+      });
+
     };
 
-    return tests
+    return tests;
   }
 );

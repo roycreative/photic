@@ -7,9 +7,9 @@ define(
       el: '#photic',
 
       render: function() {
-        var self = this;
         var template = Handlebars.compile(photicTemplate);
-        self.$el.html(template({testing: "Hello from handlebar template."}));
+        this.$el.empty();
+        this.$el.html(template({testing: "Hello from handlebar template."}));
         return this;
       }
     });
