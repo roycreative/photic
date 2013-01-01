@@ -10,6 +10,7 @@ require.config({
     // testing framework paths
     chai: "../../test/lib/chai",
     mocha: "../../test/lib/mocha/mocha",
+    resources: "../../test/resources",
     spec: "../../test/spec"
   },
 
