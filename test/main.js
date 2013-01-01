@@ -26,6 +26,8 @@ require.config({
     },
     mocha: {
       init: function() {
+        // Mocha (rightly so) detects Backbone.history as a global leak
+        // Had to ignoreLeaks to pass tests
         this.mocha.setup({ui: 'bdd', ignoreLeaks: true});
         return this.mocha;
       }

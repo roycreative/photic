@@ -1,10 +1,10 @@
 define(
-  ['backbone'],
-  function(Backbone) {
+  ['backbone', 'models/slide-model'],
+  function(Backbone, SlideModel) {
 
     var SlidesCollection = Backbone.Collection.extend({
 
-      model: photic.Models.SlideModel
+      model: SlideModel
 
     });
 

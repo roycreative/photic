@@ -1,11 +1,17 @@
-define(['models/slide-model', 'chai', 'mocha'], function(SlideModel, chai) {
+define(
+  ['models/slide-model', 'collections/slides-collection', 'chai', 'mocha'],
+  function(SlideModel, SlidesCollection, chai) {
   var tests = function() {
 
     assert = chai.assert;
 
+
     describe('SlideModel', function() {
+
       describe('Creation', function() {
+
         var slide;
+
         beforeEach(function() {
           slide = new SlideModel({hi: 'guy'});
         });
@@ -15,6 +21,27 @@ define(['models/slide-model', 'chai', 'mocha'], function(SlideModel, chai) {
         });
 
       });
+
+    });
+
+
+    describe('SlidesCollection', function() {
+
+      describe('Creation', function() {
+
+        var slide;
+
+        beforeEach(function() {
+        });
+
+        it('has expected number of models');
+
+        it('tracks the current Slide model');
+
+        it('emits a notification when the current Slide changes');
+
+      });
+
     });
 
   };
