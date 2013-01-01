@@ -11,6 +11,7 @@ require.config({
     chai: "../../test/lib/chai",
     mocha: "../../test/lib/mocha/mocha",
     resources: "../../test/resources",
+    sinon: "../../test/lib/sinon",
     spec: "../../test/spec"
   },
 
@@ -32,6 +33,9 @@ require.config({
         this.mocha.setup({ui: 'bdd', ignoreLeaks: true});
         return this.mocha;
       }
+    },
+    sinon: {
+      exports: 'sinon'
     },
     underscore: {
       exports: '_'
