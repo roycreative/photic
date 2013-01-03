@@ -1,23 +1,27 @@
 [
   {
+    "id": 7,
     "img": "resources/450x300.gif",
     "thumb": "resources/thumb.gif",
     "order": 0,
     "showSec": 0
   },
   {
+    "id": 8,
     "img": "resources/600x400.gif",
     "thumb": "resources/thumb.gif",
     "order": 1,
     "showSec": 4
   },
   {
+    "id": 9,
     "img": "resources/700x800.gif",
     "thumb": "resources/thumb.gif",
     "order": 2,
     "showSec": 7
   },
   {
+    "id": 6,
     "img": "resources/400x700.gif",
     "thumb": "resources/thumb.gif",
     "order": 2,

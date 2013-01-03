@@ -1,6 +1,7 @@
-define(['jquery', 'underscore', 'backbone', 'views/photic-view'],
-       function($, _, Backbone, PhoticView) {
-         var photic = new PhoticView();
-         photic.render();
-  }
-);
+define(['routes/photic-router', 'backbone'], function(PhoticRouter) {
+  var app = function() {
+    router = new PhoticRouter();
+    Backbone.history.start();
+  };
+  return app;
+});

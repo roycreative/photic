@@ -1,10 +1,18 @@
 define(
-  ['backbone', 'handlebars', 'text!templates/photic.html'],
-  function (Backbone, Handlebars, photicTemplate) {
-
+  [
+    'collections/slides-collection',
+    'text!templates/photic.html',
+    'backbone',
+    'handlebars'
+  ],
+  function (SlidesCollection, photicTemplate) {
     var PhoticView = Backbone.View.extend({
 
       el: '#photic',
+
+      initialize: function() {
+        this.slides = new SlidesCollection();
+      },
 
       render: function() {
         var template = Handlebars.compile(photicTemplate);

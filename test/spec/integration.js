@@ -1,5 +1,12 @@
 define(
-  ['routes/photic-router', 'chai', 'mocha', 'jquery', 'backbone'],
+  [
+    'routes/photic-router',
+    'chai',
+    'sinon',
+    'mocha',
+    'jquery',
+    'backbone'
+  ],
   function(PhoticRouter, chai) {
   var tests = function() {
 
@@ -47,8 +54,6 @@ define(
         router.navigate('', {trigger: true});
         assert.lengthOf($('.slideshow'), 1, '.slideshow created');
       });
-
-      it('loads a SlideCollection');
 
     });
 

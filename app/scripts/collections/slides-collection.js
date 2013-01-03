@@ -6,7 +6,15 @@ define(
 
       model: SlideModel,
 
+      // TODO: Need to refine model hierarchy
+      // Read this article about Backbone-relational:
+      // http://antoviaque.org/docs/tutorials/backbone-relational-tutorial/ 
+      // Thinking that there may be a Photic Model that points to single resource
+      // (.../photic/1/) which contains a single resource
+      url: '/slides',
+
       initialize: function(models) {
+        models = models || [];
         this.currentSlideIndex = (models.length > 0) ? 0 : null;
       },
 

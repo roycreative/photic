@@ -22,5 +22,5 @@ require.config({
 });
 
 require(['app'], function(app) {
-  // use app here
+  app();
 });

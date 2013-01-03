@@ -3,20 +3,17 @@ define(
     'models/slide-model',
     'collections/slides-collection',
     'text!resources/slides.json',
-    'backbone',
-    'underscore',
     'chai',
     'sinon',
+    'backbone',
+    'underscore',
     'mocha'
   ],
   function(
     SlideModel,
     SlidesCollection,
     slidesJson,
-    Backbone,
-    _,
-    chai,
-    sinon
+    chai
   ) {
   var tests = function() {
 
@@ -68,6 +65,29 @@ define(
                        'Collection has expected number of slides');
         });
 
+      it('loads a SlideCollection', function() {
+        var server = sinon.fakeServer.create(),
+          callback = sinon.spy(),
+          request;
+        try {
+          slides = null;
+          slides = new SlidesCollection();
+          slides.fetch({success: callback});
+          assert.equal(server.requests.length, 1, 'One external request was made');
+          request = server.requests[0];
+          request.respond(
+            200,
+            {"Content-Type": "application/json"},
+            slidesJson
+          );
+          assert(callback.called, 'SlidesCollection#fetch ran successfully');
+          assert.equal(slides.length, 4, 'SlidesCollection fetched and loaded');
+          assert.equalSlides(slides.models[0], new SlideModel(slideData[0]));
+        } finally {
+          server.restore();
+        }
+      });
+
       });
 
       describe('Changing Slides', function() {
@@ -94,7 +114,6 @@ define(
           assert.equalSlides(currentSlide, new SlideModel(slideData[1]));
         });
 
-          
         it('emits a notification when the current Slide changes', function() {
           var callback = sinon.spy(),
             nextSlide = slides.getNextSlide();
