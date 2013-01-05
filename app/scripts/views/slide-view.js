@@ -1,16 +1,24 @@
 define(
-  ['backbone', 'handlebars', 'text!templates/slide.html'],
-  function (Backbone, Handlebars, slideTemplate) {
+  ['text!templates/slide.html', 'backbone', 'handlebars'],
+  function (slideTemplate) {
 
-    photic.Views.slideView = Backbone.View.extend({
+    var SlideView = Backbone.View.extend({
+
+      initialize: function() {
+        _.bindAll(this, 'render', 'imgSrc');
+      },
+
+      template: Handlebars.compile(slideTemplate),
 
       render: function() {
-        var self = this;
-        var template = Handlebars.compile(slideTemplate);
-        self.$el.html(template());
+        this.$el.html(this.template(this));
         return this;
-      }
+      },
+
+      imgSrc: function() {return this.model.get('img');}
 
     });
+
+    return SlideView;
   }
 );
