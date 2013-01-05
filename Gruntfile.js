@@ -48,7 +48,7 @@ module.exports = function( grunt ) {
 
     // headless testing through PhantomJS
     mocha: {
-      all: ['test/**/*.html']
+      all: ['test/index.html']
     },
 
     // default watch configuration
