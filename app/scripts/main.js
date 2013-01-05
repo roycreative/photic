@@ -3,6 +3,7 @@ require.config({
     backbone: 'components/backbone/backbone',
     handlebars: 'components/handlebars/handlebars-1.0.0-rc.1',
     jquery: 'components/jquery/jquery',
+    relational: 'components/backbone-relational/backbone-relational',
     text: 'components/requirejs-text/text',
     underscore: 'components/underscore/underscore'
   },
@@ -14,6 +15,10 @@ require.config({
     },
     handlebars: {
       exports: 'Handlebars'
+    },
+    relational: {
+      deps: ['backbone'],
+      exports: 'Backbone'
     },
     underscore: {
       exports: '_'
