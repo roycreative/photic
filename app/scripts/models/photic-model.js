@@ -1,7 +1,7 @@
 define(['models/slide-model', 'relational'], function(SlideModel) {
   var PhoticModel = Backbone.RelationalModel.extend({
 
-    initialize: function(args) {
+    initialize: function() {
       this.currentSlideIndex = (this.get('slides').length > 0) ? 0 : null;
     },
 

@@ -15,20 +15,39 @@ define(
     photicJson,
     chai
   ) {
-  var tests = function() {
+var tests = function() {
 
-    assert = chai.assert;
-    assert.equalSlides = function (actualSlide, expected) {
-      assert.equal(actualSlide.get("order"), expected.get("order"),
-                   'actualSlide#order equals expected value');
-      assert.equal(actualSlide.get("img"), expected.get("img"),
-                   'actualSlide#img equals expected value');
-      assert.equal(actualSlide.get("thumb"), expected.get("thumb"),
-                   'actualSlide#thumb equals expected value');
-      assert.equal(actualSlide.get("showSec"), expected.get("showSec"),
-                   'actualSlide#showSec equals expected value');
-    };
+  assert = chai.assert;
+  assert.equalSlides = function (actualSlide, expected) {
+    assert.equal(actualSlide.get("order"), expected.get("order"),
+                 'actualSlide#order equals expected value');
+    assert.equal(actualSlide.get("img"), expected.get("img"),
+                 'actualSlide#img equals expected value');
+    assert.equal(actualSlide.get("thumb"), expected.get("thumb"),
+                 'actualSlide#thumb equals expected value');
+    assert.equal(actualSlide.get("showSec"), expected.get("showSec"),
+                 'actualSlide#showSec equals expected value');
+  };
 
+  describe('Unit Tests', function() {
+        
+    afterEach(function() {
+      // Manually destroy the models we created to delete them from the
+      // backbone-relational store
+      var server = sinon.fakeServer.create();
+      try {
+        var photics = Backbone.Relational.store.getCollection(PhoticModel);
+        photics.each(function(photic) {
+          photic.destroy();
+        });
+        var slides = Backbone.Relational.store.getCollection(SlideModel);
+        slides.each(function(slide) {
+          slide.destroy();
+        });
+      } finally {
+        server.restore();
+      }
+    });
 
     describe('SlideModel', function() {
 
@@ -40,20 +59,9 @@ define(
           slide = new SlideModel({hi: 'guy'});
         });
 
-      afterEach(function() {
-        // Manually destroy the models we created to delete them from the
-        // backbone-relational store
-        var server = sinon.fakeServer.create();
-        try {
-          slide.destroy();
-        } finally {
-          server.restore();
-        }
-      });
-
-      it('has arguments set', function() {
-        assert.equal(slide.get('hi'), 'guy', 'Constructor arguments are set');
-      });
+        it('has arguments set', function() {
+          assert.equal(slide.get('hi'), 'guy', 'Constructor arguments are set');
+        });
 
       });
 
@@ -62,41 +70,37 @@ define(
 
     describe('PhoticModel', function() {
 
-      var photicData = JSON.parse(photicJson);
-      var photic;
-
-      beforeEach(function() {
-        photic = new PhoticModel(photicData);
-      });
-
-      afterEach(function() {
-        var server = sinon.fakeServer.create();
-        try {
-          photic.get('slides').each(function(slide) {
-            slide.destroy();
-          });
-          photic.destroy();
-        } finally {
-          server.restore();
-        }
-      });
-
       describe('Creation', function() {
+
+        var photicData = JSON.parse(photicJson);
+        var photic;
+
+        beforeEach(function() {
+          photic = new PhoticModel(photicData);
+        });
 
         it('has expected number of models', function() {
           assert.equal(photic.get('slides').length, 4,
                        'Collection has expected number of slides');
         });
 
+      });
+
+      describe('Read', function () {
+
+        var photicData = JSON.parse(photicJson);
+
         it('loads related Slides', function() {
           var server = sinon.fakeServer.create(),
             callback = sinon.spy(),
             request;
           try {
-            photic = null;
-            photic = new PhoticModel();
+            var photic = new PhoticModel({_id: 456});
+            assert.equal(server.requests.length, 0,
+                         'No requests are made on initialization');
             photic.fetch({success: callback});
-            assert.equal(server.requests.length, 1, 'One external request was made');
+            assert.equal(server.requests.length, 1,
+                         'One external request was made');
             request = server.requests[0];
             request.respond(
               200,
@@ -104,7 +108,8 @@ define(
               photicJson
             );
             assert(callback.called, 'PhoticModel#fetch ran successfully');
-            assert.equal(photic.get('slides').length, 4, 'PhoticModel fetched and loaded');
+            assert.equal(photic.get('slides').length, 4,
+                         'PhoticModel fetched and loaded');
             assert.equalSlides(
               photic.get('slides').models[0],
               SlideModel.findOrCreate(photicData['slides'][0])
@@ -117,6 +122,13 @@ define(
       });
 
       describe('Changing Slides', function() {
+
+        var photicData = JSON.parse(photicJson);
+        var photic;
+
+        beforeEach(function() {
+          photic = new PhoticModel(photicData);
+        });
 
         it('defaults currentSlide to the first Slide', function () {
           var currentSlide = photic.getCurrentSlide();
@@ -160,11 +172,10 @@ define(
           assert.equalSlides(callback.args[0][0], nextSlide);
         });
 
-      });
+      }); // describe('Changing Slides')
+    }); // describe('Photic Model')
+  }); // describe('Unit Tests')
+}; // tests
 
-    });
-
-  };
-
-  return tests
+return tests
 });
