@@ -6,20 +6,10 @@
   <link rel="stylesheet" href="lib/mocha/mocha.css">
 </head>
 <body>
+  <div id="photic"></div>
   <div id="mocha"></div>
 
-  <!-- assertion framework -->
-  <script src="lib/mocha/mocha.js"></script>
-  <script>mocha.setup('bdd')</script>
-  <script src="lib/chai.js"></script>
-    
-  <!-- include source files here... -->
-
-  <!-- include spec files here... -->
-  <script src="spec/unit.js"></script>
-
-  <!-- trigger the mocha runner -->
-  <script src="runner/mocha.js"></script>
+  <script data-main="main.js" src="../app/scripts/components/requirejs/require.js"></script>
 
 </body>
 </html>
