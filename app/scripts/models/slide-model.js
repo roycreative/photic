@@ -1,11 +1,15 @@
-define(
-  ['backbone'],
-  function(Backbone) {
+define(['relational'], function() {
+  var SlideModel = Backbone.RelationalModel.extend({
 
-    var SlideModel = Backbone.Model.extend({
-    });
+    idAttribute: '_id',
 
-    return SlideModel;
-  }
-);
+    urlRoot: '/slides'
+
+  });
+
+  // backbone-relational setup
+  SlideModel.setup();
+
+  return SlideModel;
+});
 

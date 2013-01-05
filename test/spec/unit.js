@@ -1,8 +1,8 @@
 define(
   [
+    'models/photic-model',
     'models/slide-model',
-    'collections/slides-collection',
-    'text!resources/slides.json',
+    'text!resources/photic.json',
     'chai',
     'sinon',
     'backbone',
@@ -10,9 +10,9 @@ define(
     'mocha'
   ],
   function(
+    PhoticModel,
     SlideModel,
-    SlidesCollection,
-    slidesJson,
+    photicJson,
     chai
   ) {
   var tests = function() {
@@ -40,85 +40,122 @@ define(
           slide = new SlideModel({hi: 'guy'});
         });
 
-        it('has arguments set', function() {
-          assert.equal(slide.get('hi'), 'guy', 'Constructor arguments are set');
-        });
+      afterEach(function() {
+        // Manually destroy the models we created to delete them from the
+        // backbone-relational store
+        var server = sinon.fakeServer.create();
+        try {
+          slide.destroy();
+        } finally {
+          server.restore();
+        }
+      });
+
+      it('has arguments set', function() {
+        assert.equal(slide.get('hi'), 'guy', 'Constructor arguments are set');
+      });
 
       });
 
     });
 
 
-    describe('SlidesCollection', function() {
+    describe('PhoticModel', function() {
 
-      var slideData = JSON.parse(slidesJson);
-      var slides;
+      var photicData = JSON.parse(photicJson);
+      var photic;
 
       beforeEach(function() {
-        slides = new SlidesCollection(slideData);
+        photic = new PhoticModel(photicData);
+      });
+
+      afterEach(function() {
+        var server = sinon.fakeServer.create();
+        try {
+          photic.get('slides').each(function(slide) {
+            slide.destroy();
+          });
+          photic.destroy();
+        } finally {
+          server.restore();
+        }
       });
 
       describe('Creation', function() {
 
         it('has expected number of models', function() {
-          assert.equal(slides.length, 4,
+          assert.equal(photic.get('slides').length, 4,
                        'Collection has expected number of slides');
         });
 
-      it('loads a SlideCollection', function() {
-        var server = sinon.fakeServer.create(),
-          callback = sinon.spy(),
-          request;
-        try {
-          slides = null;
-          slides = new SlidesCollection();
-          slides.fetch({success: callback});
-          assert.equal(server.requests.length, 1, 'One external request was made');
-          request = server.requests[0];
-          request.respond(
-            200,
-            {"Content-Type": "application/json"},
-            slidesJson
-          );
-          assert(callback.called, 'SlidesCollection#fetch ran successfully');
-          assert.equal(slides.length, 4, 'SlidesCollection fetched and loaded');
-          assert.equalSlides(slides.models[0], new SlideModel(slideData[0]));
-        } finally {
-          server.restore();
-        }
-      });
+        it('loads related Slides', function() {
+          var server = sinon.fakeServer.create(),
+            callback = sinon.spy(),
+            request;
+          try {
+            photic = null;
+            photic = new PhoticModel();
+            photic.fetch({success: callback});
+            assert.equal(server.requests.length, 1, 'One external request was made');
+            request = server.requests[0];
+            request.respond(
+              200,
+              {"Content-Type": "application/json"},
+              photicJson
+            );
+            assert(callback.called, 'PhoticModel#fetch ran successfully');
+            assert.equal(photic.get('slides').length, 4, 'PhoticModel fetched and loaded');
+            assert.equalSlides(
+              photic.get('slides').models[0],
+              SlideModel.findOrCreate(photicData['slides'][0])
+            );
+          } finally {
+            server.restore();
+          }
+        });
 
       });
 
       describe('Changing Slides', function() {
 
         it('defaults currentSlide to the first Slide', function () {
-          var currentSlide = slides.getCurrentSlide();
-          assert.equalSlides(currentSlide, new SlideModel(slideData[0]));
+          var currentSlide = photic.getCurrentSlide();
+          assert.equalSlides(
+            currentSlide,
+            SlideModel.findOrCreate(photicData['slides'][0])
+          );
         });
 
         it('gets the next slide on #getNextSlide', function () {
-          var nextSlide = slides.getNextSlide();
-          assert.equalSlides(nextSlide, new SlideModel(slideData[1]));
+          var nextSlide = photic.getNextSlide();
+          assert.equalSlides(
+            nextSlide,
+            SlideModel.findOrCreate(photicData['slides'][1])
+          );
         });
 
         it('gets the previous slide on #getPreviousSlide', function () {
-          var previousSlide = slides.getPreviousSlide();
-          assert.equalSlides(previousSlide, new SlideModel(slideData[3]));
+          var previousSlide = photic.getPreviousSlide();
+          assert.equalSlides(
+            previousSlide,
+            SlideModel.findOrCreate(photicData['slides'][3])
+          );
         });
 
         it('changes currentSlide on #setCurrentSlide', function() {
-          var nextSlide = slides.getNextSlide();
-          slides.setCurrentSlide(nextSlide);
-          var currentSlide = slides.getCurrentSlide();
-          assert.equalSlides(currentSlide, new SlideModel(slideData[1]));
+          var nextSlide = photic.getNextSlide();
+          photic.setCurrentSlide(nextSlide);
+          var currentSlide = photic.getCurrentSlide();
+          assert.equalSlides(
+            currentSlide,
+            SlideModel.findOrCreate(photicData['slides'][1]));
         });
 
         it('emits a notification when the current Slide changes', function() {
           var callback = sinon.spy(),
-            nextSlide = slides.getNextSlide();
-          slides.on('currentSlideChanged', callback);
-          slides.setCurrentSlide(nextSlide);
+            nextSlide = photic.getNextSlide();
+          photic.on('currentSlideChanged', callback);
+          photic.setCurrentSlide(nextSlide);
           assert(callback.called, '"currentSlideChanged" event was fired');
           assert.equalSlides(callback.args[0][0], nextSlide);
         });

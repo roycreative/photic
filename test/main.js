@@ -5,6 +5,7 @@ require.config({
     backbone: 'components/backbone/backbone',
     handlebars: 'components/handlebars/handlebars-1.0.0-rc.1',
     jquery: 'components/jquery/jquery',
+    relational: 'components/backbone-relational/backbone-relational',
     text: 'components/requirejs-text/text',
     underscore: 'components/underscore/underscore',
     // testing framework paths
@@ -33,6 +34,10 @@ require.config({
         this.mocha.setup({ui: 'bdd', ignoreLeaks: true});
         return this.mocha;
       }
+    },
+    relational: {
+      deps: ['backbone'],
+      exports: 'Backbone'
     },
     sinon: {
       exports: 'sinon'
