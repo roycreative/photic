@@ -2,12 +2,13 @@ define(
   [
     'models/photic-model',
     'text!templates/photic.html',
+    'views/controls-view',
     'views/slideshow-view',
     'backbone',
     'handlebars',
     'underscore'
   ],
-  function (PhoticModel, photicTemplate, SlideshowView) {
+  function (PhoticModel, photicTemplate, ControlsView, SlideshowView) {
     var PhoticView = Backbone.View.extend({
 
       model: new PhoticModel(),
@@ -28,6 +29,11 @@ define(
           el: this.$('.slideshow')
         });
         slideshow_view.render();
+        var controls_view = new ControlsView({
+          model: this.model,
+          el: this.$('.controls')
+        });
+        controls_view.render();
         return this;
       },
 
