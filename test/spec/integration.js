@@ -74,7 +74,18 @@ define(
 
       describe('Slide View', function() {
 
-        it('renders on load');
+        it('renders on load', function() {
+          router.navigate('photic/456', {trigger: true});
+          assert.equal(server.requests.length, 1,
+                       'One external request was made');
+          var request = server.requests[0];
+          request.respond(
+            200,
+            {"Content-Type": "application/json"},
+            photicJson
+          );
+          assert.lengthOf($('.slide'), 1, '.slide created');
+        });
 
       });
 
