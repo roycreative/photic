@@ -17,7 +17,7 @@ define(
         'click .icon-backward': 'previousSlide',
         'click .icon-forward': 'nextSlide',
         'click .icon-play': 'play',
-        'click .icon-pause': 'pause',
+        'click .icon-pause': 'pause'
       },
 
       previousSlide: function(evt) {
@@ -53,7 +53,7 @@ define(
       render: function() {
         this.$el.html(this.template(this));
         return this;
-      },
+      }
 
     });
 

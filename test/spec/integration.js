@@ -92,11 +92,25 @@ define(
     
       describe('Photic Controls View', function() {
 
+        beforeEach(function() {
+          router.navigate('photic/456', {trigger: true});
+          assert.equal(server.requests.length, 1,
+                       'One external request was made');
+          var request = server.requests[0];
+          request.respond(
+            200,
+            {"Content-Type": "application/json"},
+            photicJson
+          );
+        });
+
         describe('Next button', function() {
 
-          it('renders on load');
+          it('renders on load', function () {
+            assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
+          });
 
-          it('moves to the next slide');
+          it('moves to the next slide when clicked');
 
           it('is disabled if there are no further slides');
 
@@ -104,9 +118,11 @@ define(
 
         describe('Previous button', function() {
 
-          it('renders on load');
+          it('renders on load', function () {
+            assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
+          });
 
-          it('moves to the next slide');
+          it('moves to the previous slide when clicked');
 
           it('is disabled if there are no further slides');
 
@@ -114,7 +130,9 @@ define(
 
         describe('Play button', function() {
 
-          it('renders on load');
+          it('renders on load', function () {
+            assert.lengthOf($('i.icon-play'), 1, 'i.icon-play created');
+          });
 
           it('starts the show from the beginning when clicked');
 
@@ -123,8 +141,6 @@ define(
         });
 
         describe('Pause button', function() {
-
-          it('renders on load');
 
           it('pauses the slideshow and audio when clicked');
 
