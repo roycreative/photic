@@ -15,7 +15,9 @@ define(
 
       events: {
         'click .icon-backward': 'previousSlide',
-        'click .icon-forward': 'nextSlide'
+        'click .icon-forward': 'nextSlide',
+        'click .icon-play': 'play',
+        'click .icon-pause': 'pause',
       },
 
       previousSlide: function(evt) {
@@ -28,6 +30,22 @@ define(
         evt.preventDefault();
         var next = this.model.getNextSlide();
         this.model.setCurrentSlide(next);
+      },
+
+      play: function(evt) {
+        evt.preventDefault();
+        var btn = $(evt.target);
+        // display pause icon
+        btn.addClass('icon-pause');
+        btn.removeClass('icon-play');
+      },
+
+      pause: function(evt) {
+        evt.preventDefault();
+        var btn = $(evt.target);
+        // display play icon
+        btn.addClass('icon-play');
+        btn.removeClass('icon-pause');
       },
 
       template: Handlebars.compile(controlsTemplate),
