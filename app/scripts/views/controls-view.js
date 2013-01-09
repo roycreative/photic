@@ -14,7 +14,14 @@ define(
       },
 
       events: {
+        'click .icon-backward': 'previousSlide',
         'click .icon-forward': 'nextSlide'
+      },
+
+      previousSlide: function(evt) {
+        evt.preventDefault();
+        var prev = this.model.getPreviousSlide();
+        this.model.setCurrentSlide(prev);
       },
 
       nextSlide: function(evt) {
