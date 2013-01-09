@@ -1,16 +1,24 @@
 define(
-  ['backbone', 'views/photic-view'],
-  function(Backbone, PhoticView) {
+  ['views/photic-view', 'models/photic-model', 'relational', 'jquery'],
+  function(PhoticView, PhoticModel) {
 
     var PhoticRouter = Backbone.Router.extend({
 
       routes: {
-        "": "index"
+        "photic/:_id": "show_photic"
       },
 
-      index: function() {
-        var view = new PhoticView();
-        view.render();
+      show_photic: function(_id) {
+        var photicModel = PhoticModel.findOrCreate({_id: _id});
+        new PhoticView({
+          model: photicModel,
+          el: $('#photic')
+        });
+        photicModel.fetch({
+          success: function (model) {
+            photicModel.setCurrentSlide(model.get('slides').at(0));
+          }
+        });
       }
 
     });
