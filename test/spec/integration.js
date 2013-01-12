@@ -107,6 +107,7 @@ define(
         describe('Next button', function() {
 
           it('renders on load', function () {
+            assert.lengthOf($('a#next'), 1, 'a#next created');
             assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
           });
 
@@ -125,6 +126,7 @@ define(
         describe('Previous button', function() {
 
           it('renders on load', function () {
+            assert.lengthOf($('a#prev'), 1, 'a#prev created');
             assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
           });
 
@@ -135,21 +137,24 @@ define(
         describe('Play button', function() {
 
           it('renders on load', function () {
+            assert.lengthOf($('a#play'), 1, 'a#play created');
             assert.lengthOf($('i.icon-play'), 1, 'i.icon-play created');
           });
 
           it('starts the show from the beginning when clicked');
 
           it('becomes a Pause button when clicked', function() {
-            var play = $('i.icon-play');
-            assert.isTrue(play.hasClass('icon-play'),
+            var playBtn = $('a#play');
+            var playIcon = $('i.icon-play');
+            assert.isTrue(playIcon.hasClass('icon-play'),
                           'Has .icon-play before click');
-            assert.isFalse(play.hasClass('icon-pause'),
+            assert.isFalse(playIcon.hasClass('icon-pause'),
                            'No .icon-pause before click');
-            play.trigger('click');
-            assert.isTrue(play.hasClass('icon-pause'),
+            playBtn.trigger('click');
+            pauseIcon = $('i.icon-pause');
+            assert.isTrue(pauseIcon.hasClass('icon-pause'),
                           'Has .icon-pause after click');
-            assert.isFalse(play.hasClass('icon-play'),
+            assert.isFalse(pauseIcon.hasClass('icon-play'),
                            'No .icon-play after click');
           });
 
@@ -160,21 +165,23 @@ define(
           it('pauses the slideshow and audio when clicked');
 
           it('becomes a play button when clicked', function() {
-            var play = $('i.icon-play');
-            assert.isTrue(play.hasClass('icon-play'),
+            var playBtn = $('a#play');
+            var playIcon = $('i.icon-play');
+            assert.isTrue(playIcon.hasClass('icon-play'),
                           'Has .icon-play before Play click');
-            assert.isFalse(play.hasClass('icon-pause'),
+            assert.isFalse(playIcon.hasClass('icon-pause'),
                            'No .icon-pause before Play click');
-            play.trigger('click');
-            var pause = $('i.icon-pause');
-            assert.isTrue(pause.hasClass('icon-pause'),
+            playBtn.trigger('click');
+            var pauseBtn = $('a#pause');
+            var pauseIcon = $('i.icon-pause');
+            assert.isTrue(pauseIcon.hasClass('icon-pause'),
                           'Has .icon-pause after Play click');
-            assert.isFalse(pause.hasClass('icon-play'),
+            assert.isFalse(pauseIcon.hasClass('icon-play'),
                            'No .icon-play after Play click');
-            pause.trigger('click');
-            assert.isTrue(pause.hasClass('icon-play'),
+            pauseBtn.trigger('click');
+            assert.isTrue(pauseIcon.hasClass('icon-play'),
                           'Has .icon-play after Pause click');
-            assert.isFalse(pause.hasClass('icon-pause'),
+            assert.isFalse(pauseIcon.hasClass('icon-pause'),
                            'No .icon-pause after Pause click');
           });
 

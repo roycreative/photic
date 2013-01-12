@@ -14,10 +14,10 @@ define(
       },
 
       events: {
-        'click .icon-backward': 'previousSlide',
-        'click .icon-forward': 'nextSlide',
-        'click .icon-play': 'play',
-        'click .icon-pause': 'pause'
+        'click #prev': 'previousSlide',
+        'click #next': 'nextSlide',
+        'click #play': 'play',
+        'click #pause': 'pause'
       },
 
       previousSlide: function(evt) {
@@ -34,18 +34,22 @@ define(
 
       play: function(evt) {
         evt.preventDefault();
-        var btn = $(evt.target);
+        var btn = $(evt.target),
+          icon = btn.children('i');
+        btn.attr('id', 'pause');
         // display pause icon
-        btn.addClass('icon-pause');
-        btn.removeClass('icon-play');
+        icon.addClass('icon-pause');
+        icon.removeClass('icon-play');
       },
 
       pause: function(evt) {
         evt.preventDefault();
-        var btn = $(evt.target);
+        var btn = $(evt.target),
+          icon = btn.children('i');
+        btn.attr('id', 'play');
         // display play icon
-        btn.addClass('icon-play');
-        btn.removeClass('icon-pause');
+        icon.addClass('icon-play');
+        icon.removeClass('icon-pause');
       },
 
       template: Handlebars.compile(controlsTemplate),
