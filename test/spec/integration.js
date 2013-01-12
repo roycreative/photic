@@ -110,9 +110,15 @@ define(
             assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
           });
 
-          it('moves to the next slide when clicked');
-
-          it('is disabled if there are no further slides');
+          it('moves to the next slide when clicked', function() {
+            var slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
+                         '.slide is first data point');
+            $('i.icon-forward').trigger('click');
+            slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/600x400.gif',
+                         '.slide is second data point');
+          });
 
         });
 
@@ -124,8 +130,6 @@ define(
 
           it('moves to the previous slide when clicked');
 
-          it('is disabled if there are no further slides');
-
         });
 
         describe('Play button', function() {
@@ -136,7 +140,18 @@ define(
 
           it('starts the show from the beginning when clicked');
 
-          it('becomes a Pause button when clicked');
+          it('becomes a Pause button when clicked', function() {
+            var play = $('i.icon-play');
+            assert.isTrue(play.hasClass('icon-play'),
+                          'Has .icon-play before click');
+            assert.isFalse(play.hasClass('icon-pause'),
+                           'No .icon-pause before click');
+            play.trigger('click');
+            assert.isTrue(play.hasClass('icon-pause'),
+                          'Has .icon-pause after click');
+            assert.isFalse(play.hasClass('icon-play'),
+                           'No .icon-play after click');
+          });
 
         });
 
@@ -144,7 +159,24 @@ define(
 
           it('pauses the slideshow and audio when clicked');
 
-          it('becomes a Play button when clicked');
+          it('becomes a play button when clicked', function() {
+            var play = $('i.icon-play');
+            assert.isTrue(play.hasClass('icon-play'),
+                          'Has .icon-play before Play click');
+            assert.isFalse(play.hasClass('icon-pause'),
+                           'No .icon-pause before Play click');
+            play.trigger('click');
+            var pause = $('i.icon-pause');
+            assert.isTrue(pause.hasClass('icon-pause'),
+                          'Has .icon-pause after Play click');
+            assert.isFalse(pause.hasClass('icon-play'),
+                           'No .icon-play after Play click');
+            pause.trigger('click');
+            assert.isTrue(pause.hasClass('icon-play'),
+                          'Has .icon-play after Pause click');
+            assert.isFalse(pause.hasClass('icon-pause'),
+                           'No .icon-pause after Pause click');
+          });
 
         });
 
