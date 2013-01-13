@@ -107,36 +107,70 @@ define(
         describe('Next button', function() {
 
           it('renders on load', function () {
+            assert.lengthOf($('a#next'), 1, 'a#next created');
             assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
           });
 
-          it('moves to the next slide when clicked');
-
-          it('is disabled if there are no further slides');
+          it('moves to the next slide when clicked', function() {
+            var slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
+                         '.slide is first data point');
+            $('a#next').trigger('click');
+            slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/600x400.gif',
+                         '.slide is second data point');
+          });
 
         });
 
         describe('Previous button', function() {
 
           it('renders on load', function () {
+            assert.lengthOf($('a#prev'), 1, 'a#prev created');
             assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
           });
 
-          it('moves to the previous slide when clicked');
-
-          it('is disabled if there are no further slides');
+          it('moves to the previous slide when clicked', function() {
+            var slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
+                         '.slide is first data point');
+            // move to the next slide
+            $('a#next').trigger('click');
+            slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/600x400.gif',
+                         '.slide is second data point');
+            // move to the previous slide
+            $('a#prev').trigger('click');
+            slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
+                         '.slide has returned to first data point');
+          });
 
         });
 
         describe('Play button', function() {
 
           it('renders on load', function () {
+            assert.lengthOf($('a#play'), 1, 'a#play created');
             assert.lengthOf($('i.icon-play'), 1, 'i.icon-play created');
           });
 
           it('starts the show from the beginning when clicked');
 
-          it('becomes a Pause button when clicked');
+          it('becomes a Pause button when clicked', function() {
+            var playBtn = $('a#play');
+            var playIcon = $('i.icon-play');
+            assert.isTrue(playIcon.hasClass('icon-play'),
+                          'Has .icon-play before click');
+            assert.isFalse(playIcon.hasClass('icon-pause'),
+                           'No .icon-pause before click');
+            playBtn.trigger('click');
+            pauseIcon = $('i.icon-pause');
+            assert.isTrue(pauseIcon.hasClass('icon-pause'),
+                          'Has .icon-pause after click');
+            assert.isFalse(pauseIcon.hasClass('icon-play'),
+                           'No .icon-play after click');
+          });
 
         });
 
@@ -144,7 +178,26 @@ define(
 
           it('pauses the slideshow and audio when clicked');
 
-          it('becomes a Play button when clicked');
+          it('becomes a play button when clicked', function() {
+            var playBtn = $('a#play');
+            var playIcon = $('i.icon-play');
+            assert.isTrue(playIcon.hasClass('icon-play'),
+                          'Has .icon-play before Play click');
+            assert.isFalse(playIcon.hasClass('icon-pause'),
+                           'No .icon-pause before Play click');
+            playBtn.trigger('click');
+            var pauseBtn = $('a#pause');
+            var pauseIcon = $('i.icon-pause');
+            assert.isTrue(pauseIcon.hasClass('icon-pause'),
+                          'Has .icon-pause after Play click');
+            assert.isFalse(pauseIcon.hasClass('icon-play'),
+                           'No .icon-play after Play click');
+            pauseBtn.trigger('click');
+            assert.isTrue(pauseIcon.hasClass('icon-play'),
+                          'Has .icon-play after Pause click');
+            assert.isFalse(pauseIcon.hasClass('icon-pause'),
+                           'No .icon-pause after Pause click');
+          });
 
         });
 
