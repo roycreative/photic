@@ -115,7 +115,7 @@ define(
             var slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
                          '.slide is first data point');
-            $('i.icon-forward').trigger('click');
+            $('a#next').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'), 'resources/600x400.gif',
                          '.slide is second data point');
@@ -130,7 +130,21 @@ define(
             assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
           });
 
-          it('moves to the previous slide when clicked');
+          it('moves to the previous slide when clicked', function() {
+            var slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
+                         '.slide is first data point');
+            // move to the next slide
+            $('a#next').trigger('click');
+            slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/600x400.gif',
+                         '.slide is second data point');
+            // move to the previous slide
+            $('a#prev').trigger('click');
+            slideImg = $('.slide img');
+            assert.equal(slideImg.attr('src'), 'resources/450x300.gif',
+                         '.slide has returned to first data point');
+          });
 
         });
 
