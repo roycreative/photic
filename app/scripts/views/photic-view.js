@@ -2,13 +2,20 @@ define(
   [
     'models/photic-model',
     'text!templates/photic.html',
+    'views/audio-view',
     'views/controls-view',
     'views/slideshow-view',
     'backbone',
     'handlebars',
     'underscore'
   ],
-  function (PhoticModel, photicTemplate, ControlsView, SlideshowView) {
+  function (
+    PhoticModel,
+    photicTemplate,
+    AudioView,
+    ControlsView,
+    SlideshowView
+  ) {
     var PhoticView = Backbone.View.extend({
 
       model: new PhoticModel(),
@@ -24,16 +31,24 @@ define(
       render: function() {
         this.$el.empty();
         this.$el.html(this.template(this));
-        var slideshow_view = new SlideshowView({
+        // Render SlideshowView
+        var slideshowView = new SlideshowView({
           model: this.model,
           el: this.$('.slideshow')
         });
-        slideshow_view.render();
-        var controls_view = new ControlsView({
+        slideshowView.render();
+        // Render ControlsView
+        var controlsView = new ControlsView({
           model: this.model,
           el: this.$('.controls')
         });
-        controls_view.render();
+        controlsView.render();
+        // Render AudioView
+        var audioView = new AudioView({
+          model: this.model,
+          el: this.$('.audio')
+        });
+        audioView.render();
         return this;
       },
 

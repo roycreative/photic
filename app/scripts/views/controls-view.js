@@ -10,7 +10,7 @@ define(
     var ControlsView = Backbone.View.extend({
 
       initialize: function() {
-        _.bindAll(this, 'render', 'nextSlide');
+        _.bindAll(this, 'render', 'nextSlide', 'previousSlide');
       },
 
       events: {
@@ -40,6 +40,7 @@ define(
         // display pause icon
         icon.addClass('icon-pause');
         icon.removeClass('icon-play');
+        this.model.trigger('playAudio');
       },
 
       pause: function(evt) {
@@ -50,6 +51,7 @@ define(
         // display play icon
         icon.addClass('icon-play');
         icon.removeClass('icon-pause');
+        this.model.trigger('pauseAudio');
       },
 
       template: Handlebars.compile(controlsTemplate),

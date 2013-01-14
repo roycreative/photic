@@ -1,6 +1,7 @@
 {
   "_id": 456,
   "title": "Testing the Photic audio slideshow",
+  "audioSrc": "resources/test.wav",
   "slides": [
     {
       "_id": 7,
