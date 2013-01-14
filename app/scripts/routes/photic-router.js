@@ -17,6 +17,10 @@ define(
         photicModel.fetch({
           success: function (model) {
             photicModel.setCurrentSlide(model.get('slides').at(0));
+          },
+          error: function (model, xhr) {
+            console.log(model);
+            console.log(xhr);
           }
         });
       }
