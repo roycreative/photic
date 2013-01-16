@@ -1,6 +1,6 @@
 define(
   [
-    'text!templates/audio.html',
+    'text!scripts/templates/audio.html',
     'backbone',
     'handlebars',
     'underscore'

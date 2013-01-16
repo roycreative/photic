@@ -1,19 +1,19 @@
 define(
   [
-    'models/photic-model',
-    'models/slide-model',
-    'text!resources/photic.json',
     'chai',
-    'sinon',
+    'scripts/models/photic-model',
+    'scripts/models/slide-model',
+    'text!resources/photic.json',
     'backbone',
-    'underscore',
-    'mocha'
+    'mocha',
+    'sinon',
+    'underscore'
   ],
   function(
+    chai,
     PhoticModel,
     SlideModel,
-    photicJson,
-    chai
+    photicJson
   ) {
 var tests = function() {
 

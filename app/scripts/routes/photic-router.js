@@ -1,6 +1,10 @@
 define(
-  ['views/photic-view', 'models/photic-model', 'relational', 'jquery'],
-  function(PhoticView, PhoticModel) {
+  [
+    'scripts/views/photic-view',
+    'scripts/models/photic-model',
+    'relational',
+    'jquery'
+  ], function(PhoticView, PhoticModel) {
 
     var PhoticRouter = Backbone.Router.extend({
 

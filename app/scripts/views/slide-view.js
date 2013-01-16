@@ -1,5 +1,5 @@
 define(
-  ['text!templates/slide.html', 'backbone', 'handlebars'],
+  ['text!scripts/templates/slide.html', 'backbone', 'handlebars'],
   function (slideTemplate) {
 
     var SlideView = Backbone.View.extend({

@@ -1,7 +1,7 @@
 define(
   [
     'chai',
-    'routes/photic-router',
+    'scripts/routes/photic-router',
     'text!resources/photic.json',
     'sinon',
     'mocha',
@@ -114,12 +114,12 @@ define(
           it('moves to the next slide when clicked', function() {
             var slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
-                         'scripts/sample_resources/450x300.gif',
+                         'sample_resources/450x300.gif',
                          '.slide is first data point');
             $('a#next').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
-                         'scripts/sample_resources/600x400.gif',
+                         'sample_resources/600x400.gif',
                          '.slide is second data point');
           });
 
@@ -135,19 +135,19 @@ define(
           it('moves to the previous slide when clicked', function() {
             var slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
-                         'scripts/sample_resources/450x300.gif',
+                         'sample_resources/450x300.gif',
                          '.slide is first data point');
             // move to the next slide
             $('a#next').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
-                         'scripts/sample_resources/600x400.gif',
+                         'sample_resources/600x400.gif',
                          '.slide is second data point');
             // move to the previous slide
             $('a#prev').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
-                         'scripts/sample_resources/450x300.gif',
+                         'sample_resources/450x300.gif',
                          '.slide has returned to first data point');
           });
 

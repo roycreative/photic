@@ -1,4 +1,4 @@
-define(['models/slide-model', 'relational'], function(SlideModel) {
+define(['scripts/models/slide-model', 'relational'], function(SlideModel) {
   var PhoticModel = Backbone.RelationalModel.extend({
 
     initialize: function() {

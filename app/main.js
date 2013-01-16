@@ -1,15 +1,16 @@
 require.config({
   paths: {
     // required for photic
-    backbone: 'components/backbone/backbone',
-    handlebars: 'components/handlebars/handlebars-1.0.0-rc.1',
-    jquery: 'components/jquery/jquery',
-    relational: 'components/backbone-relational/backbone-relational',
-    text: 'components/requirejs-text/text',
-    underscore: 'components/underscore/underscore',
+    backbone: 'scripts/components/backbone/backbone',
+    handlebars: 'scripts/components/handlebars/handlebars-1.0.0-rc.1',
+    jquery: 'scripts/components/jquery/jquery',
+    relational: 'scripts/components/backbone-relational/backbone-relational',
+    scripts: 'scripts',
+    text: 'scripts/components/requirejs-text/text',
+    underscore: 'scripts/components/underscore/underscore',
     // used for demo
     resources: 'sample_resources',
-    sinon: 'components/sinon.js/sinon'
+    sinon: 'scripts/components/sinon.js/sinon'
   },
 
   shim: {
@@ -37,7 +38,7 @@ require.config({
 
 require(
   [
-    'app',
+    'scripts/app',
     'text!resources/photic.json',
     'sinon'
   ],

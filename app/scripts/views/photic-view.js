@@ -1,10 +1,10 @@
 define(
   [
-    'models/photic-model',
-    'text!templates/photic.html',
-    'views/audio-view',
-    'views/controls-view',
-    'views/slideshow-view',
+    'scripts/models/photic-model',
+    'text!scripts/templates/photic.html',
+    'scripts/views/audio-view',
+    'scripts/views/controls-view',
+    'scripts/views/slideshow-view',
     'backbone',
     'handlebars',
     'underscore'

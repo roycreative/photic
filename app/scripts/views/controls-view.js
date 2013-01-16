@@ -1,6 +1,6 @@
 define(
   [
-    'text!templates/controls.html',
+    'text!scripts/templates/controls.html',
     'backbone',
     'handlebars',
     'underscore'

@@ -1,0 +1,35 @@
+{
+  "_id": 456,
+  "title": "Testing the Photic audio slideshow",
+  "audioSrc": "sample_resources/test.wav",
+  "slides": [
+    {
+      "_id": 7,
+      "img": "sample_resources/450x300.gif",
+      "thumb": "sample_resources/thumb.gif",
+      "order": 0,
+      "showSec": 0
+    },
+    {
+      "_id": 8,
+      "img": "sample_resources/600x400.gif",
+      "thumb": "sample_resources/thumb.gif",
+      "order": 1,
+      "showSec": 4
+    },
+    {
+      "_id": 9,
+      "img": "sample_resources/700x800.gif",
+      "thumb": "sample_resources/thumb.gif",
+      "order": 2,
+      "showSec": 7
+    },
+    {
+      "_id": 6,
+      "img": "sample_resources/400x700.gif",
+      "thumb": "sample_resources/thumb.gif",
+      "order": 2,
+      "showSec": 7
+    }
+  ]
+}
