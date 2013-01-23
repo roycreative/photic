@@ -13,6 +13,7 @@ define(
           this,
           'advanceProgressBar',
           'audioSrc',
+          'pauseAudio',
           'playAudio',
           'progressBar',
           'render'
@@ -21,7 +22,19 @@ define(
         this.model.bind('pauseAudio', this.pauseAudio);
       },
 
+      // DOM helpers
+
+      audio: _.memoize(function() {return document.getElementById('audio');}),
+
+      progressBar: _.memoize(function() {return this.$('#progress-bar');}),
+      
+      // template helpers
+
+      audioSrc: function() {return this.model.get('audioSrc');},
+
       template: Handlebars.compile(audioTemplate),
+
+      // display functions
 
       render: function() {
         this.$el.html(this.template(this));
@@ -32,9 +45,7 @@ define(
           this.progressBar().html(e.target.currentTime);
       },
 
-      audio: _.memoize(function() {return document.getElementById('audio');}),
-
-      progressBar: _.memoize(function() {return this.$('#progress-bar');}),
+      // audio functions
 
       playAudio: function() {
         this.audio().addEventListener('timeupdate', this.advanceProgressBar, false);
@@ -42,9 +53,9 @@ define(
       },
 
       pauseAudio: function() {
+        this.audio().pause();
       },
 
-      audioSrc: function() {return this.model.get('audioSrc');}
     });
 
     return AudioView;
