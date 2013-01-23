@@ -11,7 +11,7 @@ define(
       initialize: function() {
         _.bindAll(
           this,
-          'advanceProgressBar',
+          'displayElapsedTime',
           'audioSrc',
           'pauseAudio',
           'playAudio',
@@ -41,20 +41,23 @@ define(
         return this;
       },
 
-      advanceProgressBar: function(e) {
-          this.progressBar().html(e.target.currentTime);
+      displayElapsedTime: function(e) {
+        var time = e.target.currentTime,
+          min = Math.floor(time / 60),
+          sec = Math.floor(time % 60);
+        this.progressBar().html(min + ":" + sec);
       },
 
       // audio functions
 
       playAudio: function() {
-        this.audio().addEventListener('timeupdate', this.advanceProgressBar, false);
+        this.audio().addEventListener('timeupdate', this.displayElapsedTime, false);
         this.audio().play();
       },
 
       pauseAudio: function() {
         this.audio().pause();
-      },
+      }
 
     });
 
