@@ -1,67 +1,61 @@
 define(
   [
+    'scripts/views/audio-elapsed-view',
+    'scripts/views/audio-progress-view',
     'text!scripts/templates/audio.html',
     'backbone',
     'handlebars',
     'underscore'
   ],
-  function(audioTemplate) {
+  function(AudioElapsedView, AudioProgressView, audioTemplate) {
     var AudioView = Backbone.View.extend({
-
       initialize: function() {
         _.bindAll(
           this,
-          'displayElapsedTime',
           'audioSrc',
           'pauseAudio',
           'playAudio',
-          'progressBar',
           'render'
         );
         this.model.bind('playAudio', this.playAudio);
         this.model.bind('pauseAudio', this.pauseAudio);
       },
 
-      // DOM helpers
-
-      audio: _.memoize(function() {return document.getElementById('audio');}),
-
-      progressBar: _.memoize(function() {return this.$('#progress-bar');}),
+      audio: _.memoize(function() {
+        return document.getElementById('audio');
+      }),
       
-      // template helpers
-
-      audioSrc: function() {return this.model.get('audioSrc');},
+      audioSrc: function() { return this.model.get('audioSrc'); },
 
       template: Handlebars.compile(audioTemplate),
 
-      // display functions
-
       render: function() {
+        var audioElapsedView, audioProgressView;
         this.$el.html(this.template(this));
+        audioElapsedView = new AudioElapsedView({
+          el: this.$('#elapsed'),
+          model: this.model,
+          audio: this.audio()
+        });
+        audioElapsedView.render();
+        audioProgressView = new AudioProgressView({
+          el: this.$('#progress'),
+          model: this.model,
+          audio: this.audio()
+        });
+        audioProgressView.render();
         return this;
       },
 
-      displayElapsedTime: function(e) {
-        var time = e.target.currentTime,
-          min = Math.floor(time / 60),
-          sec = Math.floor(time % 60);
-        this.progressBar().html(min + ":" + sec);
-      },
-
-      // audio functions
-
       playAudio: function() {
-        this.audio().addEventListener('timeupdate', this.displayElapsedTime, false);
         this.audio().play();
       },
 
       pauseAudio: function() {
         this.audio().pause();
       }
-
     });
 
     return AudioView;
-
   }
 );

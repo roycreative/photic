@@ -2,6 +2,7 @@
   "_id": 456,
   "title": "Testing the Photic audio slideshow",
   "audioSrc": "sample_resources/test.wav",
+  "audioLen": 66.22,
   "slides": [
     {
       "_id": 7,
