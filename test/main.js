@@ -1,5 +1,4 @@
 require.config({
-  baseUrl: "../app",
   paths: {
     // app paths
     backbone: 'scripts/components/backbone/backbone',
@@ -10,11 +9,11 @@ require.config({
     text: 'scripts/components/requirejs-text/text',
     underscore: 'scripts/components/underscore/underscore',
     // testing framework paths
-    chai: "../test/lib/chai",
-    mocha: "../test/lib/mocha/mocha",
-    resources: "../test/sample_resources",
-    sinon: "../test/lib/sinon",
-    spec: "../test/spec"
+    chai: "lib/chai",
+    mocha: "lib/mocha/mocha",
+    resources: "sample_resources",
+    sinon: "lib/sinon",
+    spec: "spec"
   },
 
   shim: {
