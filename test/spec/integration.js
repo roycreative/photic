@@ -10,11 +10,9 @@ define(
   ],
   function(chai, PhoticRouter, photicJson) {
   var tests = function() {
-
     assert = chai.assert;
 
     describe('Photic Router', function() {
-
       var router;
 
       beforeEach(function() {
@@ -22,7 +20,6 @@ define(
       })
 
       describe('Routes', function() {
-
         it('has routes', function() {
           assert.isObject(router.routes, 'router.routes is object');
         });
@@ -31,12 +28,10 @@ define(
           assert.propertyVal(router.routes, 'photic/:_id', 'show_photic',
                              'router has index route');
         });
-
-      });
-    });
+      }); // Routes
+    }); // Photic Router
 
     describe('Views', function () {
-
       var router, server, callback;
 
       beforeEach(function() {
@@ -55,7 +50,6 @@ define(
       });
       
       describe('Photic View', function() {
-
         it('renders on load', function() {
           router.navigate('photic/456', {trigger: true});
           assert.equal(server.requests.length, 1,
@@ -68,12 +62,10 @@ define(
           );
           assert.lengthOf($('.slideshow'), 1, '.slideshow created');
         });
-
-      });
+      }); // Photic View
 
 
       describe('Slide View', function() {
-
         it('renders on load', function() {
           router.navigate('photic/456', {trigger: true});
           assert.equal(server.requests.length, 1,
@@ -86,12 +78,9 @@ define(
           );
           assert.lengthOf($('.slide'), 1, '.slide created');
         });
-
-      });
-
+      }); // Slide View
     
       describe('Photic Controls View', function() {
-
         beforeEach(function() {
           router.navigate('photic/456', {trigger: true});
           assert.equal(server.requests.length, 1,
@@ -105,7 +94,6 @@ define(
         });
 
         describe('Next button', function() {
-
           it('renders on load', function () {
             assert.lengthOf($('a#next'), 1, 'a#next created');
             assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
@@ -122,11 +110,9 @@ define(
                          'sample_resources/600x400.gif',
                          '.slide is second data point');
           });
-
-        });
+        }); // Next button
 
         describe('Previous button', function() {
-
           it('renders on load', function () {
             assert.lengthOf($('a#prev'), 1, 'a#prev created');
             assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
@@ -150,11 +136,9 @@ define(
                          'sample_resources/450x300.gif',
                          '.slide has returned to first data point');
           });
-
-        });
+        }); // Previous button
 
         describe('Play button', function() {
-
           it('renders on load', function () {
             assert.lengthOf($('a#play'), 1, 'a#play created');
             assert.lengthOf($('i.icon-play'), 1, 'i.icon-play created');
@@ -176,11 +160,9 @@ define(
             assert.isFalse(pauseIcon.hasClass('icon-play'),
                            'No .icon-play after click');
           });
-
-        });
+        }); // Play button
 
         describe('Pause button', function() {
-
           it('pauses the slideshow and audio when clicked');
 
           it('becomes a play button when clicked', function() {
@@ -203,14 +185,67 @@ define(
             assert.isFalse(pauseIcon.hasClass('icon-pause'),
                            'No .icon-pause after Pause click');
           });
+        }); // Pause button
+      }); // Photic Controls View
 
+      describe('Audio View', function() {
+        var photicData = JSON.parse(photicJson);
+
+        beforeEach(function() {
+          router.navigate('photic/456', {trigger: true});
+          assert.equal(server.requests.length, 1,
+                       'One external request was made');
+          var request = server.requests[0];
+          request.respond(
+            200,
+            {"Content-Type": "application/json"},
+            photicJson
+          );
         });
 
-      });
+        it('renders on load', function () {
+          var audio = $('audio#audio'),
+            source = $('audio source');
+          assert.lengthOf(audio, 1, 'audio#audio created');
+          assert.lengthOf(source, 1, 'audio source created');
+        });
 
-    });
+        it('loads an audio source', function () {
+          var source = $('audio source');
+          assert.lengthOf(source, 1, 'audio source created');
+          assert.equal(source.attr('src'), photicData.audioSrc,
+                       'audio source set');
+        });
 
-  };
+        describe('Audio Elapsed View', function() {
+          it('renders on load', function () {
+            var elapsed = $('#elapsed'),
+              elapsedDisplay = $('#elapsedDisplay');
+            assert.lengthOf(elapsed, 1, '#elapsed created');
+            assert.lengthOf(elapsedDisplay, 1, '#elapsedDisplay created');
+          });
+        }); // Audio Elapsed View
+
+        describe('Audio Progress View', function() {
+          it('renders on load', function () {
+            var progress = $('#progress'),
+              progressBar = $('#progressBar');
+            assert.lengthOf(progress, 1, '#progress created');
+            assert.lengthOf(progressBar, 1, '#progressBar created');
+          });
+        }); // Audio Progress View
+
+        describe('Audio Volume View', function() {
+          it('renders on load', function () {
+            var volume = $('#volume'),
+              volumeBar = $('#volumeBar');
+            assert.lengthOf(volume, 1, '#volume created');
+            assert.lengthOf(volumeBar, 1, '#volumeBar created');
+          });
+        }); // Audio Volume View
+      }); // Audio View
+    }); // Views
+  }; // tests
 
   return tests;
 });
