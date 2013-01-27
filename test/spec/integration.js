@@ -40,6 +40,7 @@ define(
         // change Backbone.history.fragment so subsequent 
         // calls to router.navigate run as expected
         Backbone.history.loadUrl('dummy/'); 
+        // Create dummy request server
         server = sinon.fakeServer.create();
         callback = sinon.spy();
       });
@@ -144,7 +145,18 @@ define(
             assert.lengthOf($('i.icon-play'), 1, 'i.icon-play created');
           });
 
-          it('starts the show from the beginning when clicked');
+          it('starts the show from the beginning when clicked', function() {
+            var playBtn = $('a#play'),
+              audio = $('#audio')[0],
+              played = audio.played;
+            assert.isTrue(audio.paused, 'audio is not playing');
+            assert.equal(played.length, 0, 'audio has not been played');
+            playBtn.trigger('click');
+            // TODO: AudioControl.playAudio is triggered but audio is
+            // still paused.
+            assert.isFalse(audio.paused, 'audio is playing');
+            assert.equal(played.length, 1, 'audio been played');
+          });
 
           it('becomes a Pause button when clicked', function() {
             var playBtn = $('a#play');
