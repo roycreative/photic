@@ -1,19 +1,20 @@
 require.config({
-  baseUrl: "../app/scripts",
+  baseUrl: "../app",
   paths: {
     // app paths
-    backbone: 'components/backbone/backbone',
-    handlebars: 'components/handlebars/handlebars-1.0.0-rc.1',
-    jquery: 'components/jquery/jquery',
-    relational: 'components/backbone-relational/backbone-relational',
-    text: 'components/requirejs-text/text',
-    underscore: 'components/underscore/underscore',
+    backbone: 'scripts/components/backbone/backbone',
+    handlebars: 'scripts/components/handlebars/handlebars-1.0.0-rc.1',
+    jquery: 'scripts/components/jquery/jquery',
+    relational: 'scripts/components/backbone-relational/backbone-relational',
+    scripts: 'scripts',
+    text: 'scripts/components/requirejs-text/text',
+    underscore: 'scripts/components/underscore/underscore',
     // testing framework paths
-    chai: "../../test/lib/chai",
-    mocha: "../../test/lib/mocha/mocha",
-    resources: "../../test/resources",
-    sinon: "../../test/lib/sinon",
-    spec: "../../test/spec"
+    chai: "../test/lib/chai",
+    mocha: "../test/lib/mocha/mocha",
+    resources: "../test/sample_resources",
+    sinon: "../test/lib/sinon",
+    spec: "../test/spec"
   },
 
   shim: {

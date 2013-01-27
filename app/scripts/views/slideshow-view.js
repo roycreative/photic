@@ -1,6 +1,10 @@
 define(
-  ['text!templates/slideshow.html', 'views/slide-view', 'backbone', 'handlebars'],
-  function(slideshowTemplate, SlideView) {
+  [
+    'scripts/views/slide-view',
+    'text!scripts/templates/slideshow.html',
+    'backbone',
+    'handlebars'
+  ], function(SlideView, slideshowTemplate) {
 
     var SlideshowView = Backbone.View.extend({
 

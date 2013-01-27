@@ -1,6 +1,10 @@
 define(
-  ['views/photic-view', 'models/photic-model', 'relational', 'jquery'],
-  function(PhoticView, PhoticModel) {
+  [
+    'scripts/views/photic-view',
+    'scripts/models/photic-model',
+    'relational',
+    'jquery'
+  ], function(PhoticView, PhoticModel) {
 
     var PhoticRouter = Backbone.Router.extend({
 
@@ -17,6 +21,10 @@ define(
         photicModel.fetch({
           success: function (model) {
             photicModel.setCurrentSlide(model.get('slides').at(0));
+          },
+          error: function (model, xhr) {
+            console.log(model);
+            console.log(xhr);
           }
         });
       }
