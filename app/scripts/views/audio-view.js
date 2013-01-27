@@ -2,12 +2,18 @@ define(
   [
     'scripts/views/audio-elapsed-view',
     'scripts/views/audio-progress-view',
+    'scripts/views/audio-volume-view',
     'text!scripts/templates/audio.html',
     'backbone',
     'handlebars',
     'underscore'
   ],
-  function(AudioElapsedView, AudioProgressView, audioTemplate) {
+  function(
+    AudioElapsedView,
+    AudioProgressView,
+    AudioVolumeView,
+    audioTemplate
+  ) {
     var AudioView = Backbone.View.extend({
       initialize: function() {
         _.bindAll(
@@ -30,7 +36,7 @@ define(
       template: Handlebars.compile(audioTemplate),
 
       render: function() {
-        var audioElapsedView, audioProgressView;
+        var audioElapsedView, audioProgressView, audioVolumeView;
         this.$el.html(this.template(this));
         audioElapsedView = new AudioElapsedView({
           el: this.$('#elapsed'),
@@ -44,6 +50,12 @@ define(
           audio: this.audio()
         });
         audioProgressView.render();
+        audioVolumeView = new AudioVolumeView({
+          el: this.$('#volume'),
+          model: this.model,
+          audio: this.audio()
+        });
+        audioVolumeView.render();
         return this;
       },
 
