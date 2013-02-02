@@ -1,20 +1,23 @@
 define(
   [
+    'handlebars',
     'scripts/views/audio-elapsed-view',
     'scripts/views/audio-progress-view',
     'scripts/views/audio-volume-view',
+    'scripts/views/base-audio-view',
     'text!scripts/templates/audio.html',
-    'backbone',
-    'handlebars',
     'underscore'
   ],
   function(
+    Handlebars,
     AudioElapsedView,
     AudioProgressView,
     AudioVolumeView,
-    audioTemplate
+    BaseAudioView,
+    audioTemplate,
+    _
   ) {
-    var AudioView = Backbone.View.extend({
+    var AudioView = BaseAudioView.extend({
       initialize: function() {
         _.bindAll(
           this,
@@ -25,39 +28,22 @@ define(
         );
         this.model.bind('playAudio', this.playAudio);
         this.model.bind('pauseAudio', this.pauseAudio);
-        this.audioElapsedView = {destroy: function() {}};
-        this.audioProgressView = {destroy: function() {}};
-        this.audioVolumeView = {destroy: function() {}};
+        this.audioElapsedView = new AudioElapsedView({model: this.model});
+        this.audioProgressView = new AudioProgressView({model: this.model});
+        this.audioVolumeView = new AudioVolumeView({model: this.model});
       },
 
-      audio: _.memoize(function() {
-        return document.getElementById('audio');
-      }),
-      
       audioSrc: function() { return this.model.get('audioSrc'); },
 
       template: Handlebars.compile(audioTemplate),
 
       render: function() {
         this.$el.html(this.template(this));
-        this.audioElapsedView = new AudioElapsedView({
-          el: this.$('#elapsed'),
-          model: this.model,
-          audio: this.audio()
+        this.assign({
+          '#elapsed': this.audioElapsedView,
+          '#progress': this.audioProgressView,
+          '#volume': this.audioVolumeView
         });
-        this.audioElapsedView.render();
-        this.audioProgressView = new AudioProgressView({
-          el: this.$('#progress'),
-          model: this.model,
-          audio: this.audio()
-        });
-        this.audioProgressView.render();
-        this.audioVolumeView = new AudioVolumeView({
-          el: this.$('#volume'),
-          model: this.model,
-          audio: this.audio()
-        });
-        this.audioVolumeView.render();
         return this;
       },
 
@@ -70,14 +56,14 @@ define(
       },
 
       destroy: function() {
+        // remove event bindings
+        this.model.off('playAudio', this.playAudio);
+        this.model.off('pauseAudio', this.pauseAudio);
+
         // destroy children
         this.audioElapsedView.destroy();
         this.audioProgressView.destroy();
         this.audioVolumeView.destroy();
-
-        // remove event bindings
-        this.model.off('playAudio', this.playAudio);
-        this.model.off('pauseAudio', this.pauseAudio);
 
         // remove self from DOM
         this.$el.empty();

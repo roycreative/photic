@@ -1,12 +1,12 @@
 define(
   [
+    'handlebars',
+    'scripts/views/base-view',
     'scripts/views/slide-view',
-    'text!scripts/templates/slideshow.html',
-    'backbone',
-    'handlebars'
-  ], function(SlideView, slideshowTemplate) {
+    'text!scripts/templates/slideshow.html'
+  ], function(Handlebars, BaseView, SlideView, slideshowTemplate) {
 
-    var SlideshowView = Backbone.View.extend({
+    var SlideshowView = BaseView.extend({
       tagName: 'div',
 
       className: 'slideshow-inner',
@@ -14,7 +14,7 @@ define(
       initialize: function() {
         _.bindAll(this, 'render', 'render_slide');
         this.model.bind('currentSlideChanged', this.render_slide);
-        this.currentSlideView = {destroy: function() {}};
+        this.currentSlideView = new SlideView();
       },
 
       template: Handlebars.compile(slideshowTemplate),
@@ -25,20 +25,17 @@ define(
       },
 
       render_slide: function(slide) {
-        var slideEl = this.$('.slide');
-        this.currentSlideView = new SlideView({
-          model: slide,
-          el: slideEl
-        });
-        this.currentSlideView.render();
+        this.currentSlideView.model = slide;
+        this.assign('.slide', this.currentSlideView);
+        return this;
       },
 
       destroy: function() {
-        // destroy children
-        this.currentSlideView.destroy()
-
         // remove event bindings
         this.model.off('currentSlideChanged', this.render_slide);
+
+        // destroy children
+        this.currentSlideView.destroy();
 
         // remove self from DOM
         this.$el.empty();

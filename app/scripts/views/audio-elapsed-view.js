@@ -1,13 +1,13 @@
 define(
   [
-    'text!scripts/templates/audio-elapsed.html',
-    'backbone',
     'handlebars',
+    'scripts/views/base-audio-view',
+    'text!scripts/templates/audio-elapsed.html',
     'underscore'
   ],
-  function(audioElapsedTemplate) {
-    var AudioElapsedView = Backbone.View.extend({
-      initialize: function(opts) {
+  function(Handlebars, BaseAudioView, audioElapsedTemplate, _) {
+    var AudioElapsedView = BaseAudioView.extend({
+      initialize: function() {
         _.bindAll(
           this,
           'playAudio',
@@ -15,7 +15,6 @@ define(
           'updateElapsedTime'
         );
         this.model.bind('playAudio', this.playAudio);
-        this.audio = opts.audio;
       },
 
       elapsedDisplay: _.memoize(function() {
@@ -29,7 +28,8 @@ define(
       },
 
       playAudio: function() {
-        this.audio.addEventListener('timeupdate', this.updateElapsedTime, false);
+        this.audio().addEventListener(
+          'timeupdate', this.updateElapsedTime, false);
       },
 
       updateElapsedTime: function(e) {

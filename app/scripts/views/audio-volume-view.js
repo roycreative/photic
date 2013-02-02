@@ -1,19 +1,18 @@
 define(
   [
-    'text!scripts/templates/audio-volume.html',
-    'backbone',
     'handlebars',
+    'scripts/views/base-audio-view',
+    'text!scripts/templates/audio-volume.html',
     'underscore'
   ],
-  function(audioVolumeTemplate) {
-    var AudioVolumeView = Backbone.View.extend({
-      initialize: function(opts) {
+  function(Handlebars, BaseAudioView, audioVolumeTemplate, _) {
+    var AudioVolumeView = BaseAudioView.extend({
+      initialize: function() {
         _.bindAll(
           this,
           'render',
           'changeVolumeBar'
         );
-        this.audio = opts.audio;
       },
 
       events: {
@@ -25,7 +24,7 @@ define(
       }),
 
       changeVolumeBar: function() {
-        this.audio.volume = this.volumeBar().val();
+        this.audio().volume = this.volumeBar().val();
       },
 
       template: Handlebars.compile(audioVolumeTemplate),

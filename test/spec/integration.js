@@ -1,14 +1,22 @@
 define(
   [
     'chai',
+    'scripts/models/photic-model',
     'scripts/routes/photic-router',
+    'scripts/views/photic-view',
     'text!resources/photic.json',
     'sinon',
     'mocha',
     'jquery',
     'backbone'
   ],
-  function(chai, PhoticRouter, photicJson) {
+  function(
+    chai,
+    PhoticModel,
+    PhoticRouter,
+    PhoticView,
+    photicData
+  ) {
   var tests = function() {
     assert = chai.assert;
 
@@ -32,68 +40,36 @@ define(
     }); // Photic Router
 
     describe('Views', function () {
-      var router, server, callback;
+      var photicModel, photicView, photicJson = JSON.parse(photicData);
 
       beforeEach(function() {
-        router = new PhoticRouter();
-        Backbone.history.start({silent: true});
-        // change Backbone.history.fragment so subsequent 
-        // calls to router.navigate run as expected
-        Backbone.history.loadUrl('dummy/'); 
-        // Create dummy request server
-        server = sinon.fakeServer.create();
-        callback = sinon.spy();
+        photicModel = new PhoticModel(photicJson);
+        photicView = new PhoticView({
+          el: $('#photic'),
+          model: photicModel
+        });
+        photicView.render();
       });
 
       afterEach(function() {
-        Backbone.history.stop();
-        server.restore();
+//        photicView.destroy();
+//        photicModel.destroy();
       });
-      
+
       describe('Photic View', function() {
-        it('renders on load', function() {
-          router.navigate('photic/456', {trigger: true});
-          assert.equal(server.requests.length, 1,
-                       'One external request was made');
-          var request = server.requests[0];
-          request.respond(
-            200,
-            {"Content-Type": "application/json"},
-            photicJson
-          );
-          assert.lengthOf($('.slideshow'), 1, '.slideshow created');
+        it.only('renders on load', function() {
+          assert.lengthOf(photicView.$('.slideshow'), 1, '.slideshow created');
         });
       }); // Photic View
 
 
       describe('Slide View', function() {
         it('renders on load', function() {
-          router.navigate('photic/456', {trigger: true});
-          assert.equal(server.requests.length, 1,
-                       'One external request was made');
-          var request = server.requests[0];
-          request.respond(
-            200,
-            {"Content-Type": "application/json"},
-            photicJson
-          );
-          assert.lengthOf($('.slide'), 1, '.slide created');
+          assert.lengthOf(photicView.$('.slide'), 1, '.slide created');
         });
       }); // Slide View
     
       describe('Photic Controls View', function() {
-        beforeEach(function() {
-          router.navigate('photic/456', {trigger: true});
-          assert.equal(server.requests.length, 1,
-                       'One external request was made');
-          var request = server.requests[0];
-          request.respond(
-            200,
-            {"Content-Type": "application/json"},
-            photicJson
-          );
-        });
-
         describe('Next button', function() {
           it('renders on load', function () {
             assert.lengthOf($('a#next'), 1, 'a#next created');
@@ -201,7 +177,6 @@ define(
       }); // Photic Controls View
 
       describe('Audio View', function() {
-        var photicData = JSON.parse(photicJson);
 
         beforeEach(function() {
           router.navigate('photic/456', {trigger: true});
@@ -225,7 +200,7 @@ define(
         it('loads an audio source', function () {
           var source = $('audio source');
           assert.lengthOf(source, 1, 'audio source created');
-          assert.equal(source.attr('src'), photicData.audioSrc,
+          assert.equal(source.attr('src'), photicJson.audioSrc,
                        'audio source set');
         });
 

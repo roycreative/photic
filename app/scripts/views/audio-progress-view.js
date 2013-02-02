@@ -1,13 +1,13 @@
 define(
   [
-    'text!scripts/templates/audio-progress.html',
-    'backbone',
     'handlebars',
+    'scripts/views/base-audio-view',
+    'text!scripts/templates/audio-progress.html',
     'underscore'
   ],
-  function(audioProgressTemplate) {
-    var AudioProgressView = Backbone.View.extend({
-      initialize: function(opts) {
+  function(Handlebars, BaseAudioView, audioProgressTemplate, _) {
+    var AudioProgressView = BaseAudioView.extend({
+      initialize: function() {
         _.bindAll(
           this,
           'audioLen',
@@ -16,7 +16,6 @@ define(
           'updateProgressBar'
         );
         this.model.bind('playAudio', this.playAudio);
-        this.audio = opts.audio;
       },
 
       audioLen: function() { return this.model.get('audioLen'); },
@@ -37,7 +36,8 @@ define(
       },
 
       playAudio: function() {
-        this.audio.addEventListener('timeupdate', this.updateProgressBar, false);
+        this.audio().addEventListener(
+          'timeupdate', this.updateProgressBar, false);
       },
 
       destroy: function() {

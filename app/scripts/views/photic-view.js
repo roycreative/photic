@@ -1,22 +1,25 @@
 define(
   [
+    'handlebars',
     'scripts/models/photic-model',
     'scripts/views/audio-view',
+    'scripts/views/base-view',
     'scripts/views/controls-view',
     'scripts/views/slideshow-view',
     'text!scripts/templates/photic.html',
-    'backbone',
-    'handlebars',
     'underscore'
   ],
   function (
+    Handlebars,
     PhoticModel,
     AudioView,
+    BaseView,
     ControlsView,
     SlideshowView,
-    photicTemplate
+    photicTemplate,
+    _
   ) {
-    var PhoticView = Backbone.View.extend({
+    var PhoticView = BaseView.extend({
 
       model: new PhoticModel(),
 
@@ -24,48 +27,34 @@ define(
         _.bindAll(this, 'render', 'title');
         this.model.bind('change', this.render);
         this.model.bind('reset', this.render);
-        this.slideshowView = {destroy: function() {}};
-        this.controlsView = {destroy: function() {}};
-        this.audioView = {destroy: function() {}};
+        this.slideshowView = new SlideshowView({model: this.model});
+        this.controlsView = new ControlsView({model: this.model});
+        this.audioView = new AudioView({model: this.model});
       },
 
       template: Handlebars.compile(photicTemplate),
 
       render: function() {
-        this.$el.empty();
         this.$el.html(this.template(this));
-        // Render SlideshowView
-        this.slideshowView = new SlideshowView({
-          model: this.model,
-          el: this.$('.slideshow')
+        this.assign({
+          '.slideshow': this.slideshowView,
+          '.controls': this.controlsView,
+          '.audio': this.audioView
         });
-        this.slideshowView.render();
-        // Render ControlsView
-        this.controlsView = new ControlsView({
-          model: this.model,
-          el: this.$('.controls')
-        });
-        this.controlsView.render();
-        // Render AudioView
-        this.audioView = new AudioView({
-          model: this.model,
-          el: this.$('.audio')
-        });
-        this.audioView.render();
         return this;
       },
 
       title: function() {return this.model.get('title');},
 
       destroy: function() {
+        // remove event bindings
+        this.model.off('change', this.render);
+        this.model.off('reset', this.render);
+
         // destroy children
         this.slideshowView.destroy();
         this.controlsView.destroy();
         this.audioView.destroy();
-
-        // remove event bindings
-        this.model.off('change', this.render);
-        this.model.off('reset', this.render);
 
         // remove self from DOM
         this.$el.empty();
