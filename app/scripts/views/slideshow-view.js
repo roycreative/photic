@@ -7,7 +7,6 @@ define(
   ], function(SlideView, slideshowTemplate) {
 
     var SlideshowView = Backbone.View.extend({
-
       tagName: 'div',
 
       className: 'slideshow-inner',
@@ -15,6 +14,7 @@ define(
       initialize: function() {
         _.bindAll(this, 'render', 'render_slide');
         this.model.bind('currentSlideChanged', this.render_slide);
+        this.currentSlideView = {destroy: function() {}};
       },
 
       template: Handlebars.compile(slideshowTemplate),
@@ -31,8 +31,18 @@ define(
           el: slideEl
         });
         this.currentSlideView.render();
-      }
+      },
 
+      destroy: function() {
+        // destroy children
+        this.currentSlideView.destroy()
+
+        // remove event bindings
+        this.model.off('currentSlideChanged', this.render_slide);
+
+        // remove self from DOM
+        this.$el.empty();
+      }
     });
 
     return SlideshowView;

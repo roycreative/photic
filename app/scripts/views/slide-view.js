@@ -15,7 +15,11 @@ define(
         return this;
       },
 
-      imgSrc: function() {return this.model.get('img');}
+      imgSrc: function() {return this.model.get('img');},
+
+      destroy: function() {
+        this.$el.empty();
+      }
 
     });
 

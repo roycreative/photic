@@ -37,6 +37,11 @@ define(
           min = Math.floor(time / 60),
           sec = Math.floor(time % 60);
         this.elapsedDisplay().html(min + ":" + sec);
+      },
+
+      destroy: function() {
+        this.model.off('playAudio', this.playAudio);
+        this.$el.empty();
       }
     });
 

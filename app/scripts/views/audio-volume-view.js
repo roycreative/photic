@@ -32,6 +32,10 @@ define(
 
       render: function() {
         this.$el.html(this.template(this));
+      },
+
+      destroy: function() {
+        this.$el.empty();
       }
     });
 

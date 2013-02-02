@@ -25,6 +25,9 @@ define(
         );
         this.model.bind('playAudio', this.playAudio);
         this.model.bind('pauseAudio', this.pauseAudio);
+        this.audioElapsedView = {destroy: function() {}};
+        this.audioProgressView = {destroy: function() {}};
+        this.audioVolumeView = {destroy: function() {}};
       },
 
       audio: _.memoize(function() {
@@ -36,26 +39,25 @@ define(
       template: Handlebars.compile(audioTemplate),
 
       render: function() {
-        var audioElapsedView, audioProgressView, audioVolumeView;
         this.$el.html(this.template(this));
-        audioElapsedView = new AudioElapsedView({
+        this.audioElapsedView = new AudioElapsedView({
           el: this.$('#elapsed'),
           model: this.model,
           audio: this.audio()
         });
-        audioElapsedView.render();
-        audioProgressView = new AudioProgressView({
+        this.audioElapsedView.render();
+        this.audioProgressView = new AudioProgressView({
           el: this.$('#progress'),
           model: this.model,
           audio: this.audio()
         });
-        audioProgressView.render();
-        audioVolumeView = new AudioVolumeView({
+        this.audioProgressView.render();
+        this.audioVolumeView = new AudioVolumeView({
           el: this.$('#volume'),
           model: this.model,
           audio: this.audio()
         });
-        audioVolumeView.render();
+        this.audioVolumeView.render();
         return this;
       },
 
@@ -65,6 +67,20 @@ define(
 
       pauseAudio: function() {
         this.audio().pause();
+      },
+
+      destroy: function() {
+        // destroy children
+        this.audioElapsedView.destroy();
+        this.audioProgressView.destroy();
+        this.audioVolumeView.destroy();
+
+        // remove event bindings
+        this.model.off('playAudio', this.playAudio);
+        this.model.off('pauseAudio', this.pauseAudio);
+
+        // remove self from DOM
+        this.$el.empty();
       }
     });
 

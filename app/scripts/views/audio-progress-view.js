@@ -38,6 +38,11 @@ define(
 
       playAudio: function() {
         this.audio.addEventListener('timeupdate', this.updateProgressBar, false);
+      },
+
+      destroy: function() {
+        this.model.off('playAudio', this.playAudio);
+        this.$el.empty();
       }
     });
 
