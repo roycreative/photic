@@ -19,9 +19,7 @@ define(
         'change #volumeBar': 'changeVolumeBar'
       },
 
-      volumeBar: _.memoize(function() {
-        return this.$('#volumeBar');
-      }),
+      volumeBar: function() { return this.$('#volumeBar'); },
 
       changeVolumeBar: function() {
         this.audio().volume = this.volumeBar().val();
@@ -34,6 +32,7 @@ define(
       },
 
       destroy: function() {
+        this.undelegateEvents();
         this.$el.empty();
       }
     });

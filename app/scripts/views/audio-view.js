@@ -24,7 +24,8 @@ define(
           'audioSrc',
           'pauseAudio',
           'playAudio',
-          'render'
+          'render',
+          'timeUpdate'
         );
         this.model.bind('playAudio', this.playAudio);
         this.model.bind('pauseAudio', this.pauseAudio);
@@ -33,12 +34,18 @@ define(
         this.audioVolumeView = new AudioVolumeView({model: this.model});
       },
 
+      timeUpdate: function(evt) {
+        this.model.trigger('audioTimeUpdate', evt.target.currentTime);
+      },
+
       audioSrc: function() { return this.model.get('audioSrc'); },
 
       template: Handlebars.compile(audioTemplate),
 
       render: function() {
         this.$el.html(this.template(this));
+        this.audio().removeEventListener('timeupdate', this.timeUpdate, false);
+        this.audio().addEventListener('timeupdate', this.timeUpdate, false);
         this.assign({
           '#elapsed': this.audioElapsedView,
           '#progress': this.audioProgressView,
@@ -59,6 +66,7 @@ define(
         // remove event bindings
         this.model.off('playAudio', this.playAudio);
         this.model.off('pauseAudio', this.pauseAudio);
+        this.audio().removeEventListener('timeupdate', this.timeUpdate, false);
 
         // destroy children
         this.audioElapsedView.destroy();

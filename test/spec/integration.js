@@ -52,24 +52,41 @@ define(
       });
 
       afterEach(function() {
-//        photicView.destroy();
-//        photicModel.destroy();
+        photicView.destroy();
+        photicModel.destroy();
       });
 
       describe('Photic View', function() {
-        it.only('renders on load', function() {
-          assert.lengthOf(photicView.$('.slideshow'), 1, '.slideshow created');
+        it('renders on load', function() {
+          assert.include(photicView.$el.html(), photicJson.title,
+                        'Rendered PhoticView contains title');
         });
       }); // Photic View
 
 
       describe('Slide View', function() {
         it('renders on load', function() {
-          assert.lengthOf(photicView.$('.slide'), 1, '.slide created');
+          var firstSlide = photicModel.get('slides').at(0);
+          assert.equal(
+            photicView.slideshowView.currentSlideView.$el.html(),
+            '',
+            'SlideView does not render until current slide is set.'
+          );
+          photicModel.setCurrentSlide(firstSlide);
+          assert.include(
+            photicView.slideshowView.currentSlideView.$el.html(),
+            firstSlide.get('img'),
+            'Rendered SlideView contains slide img.'
+          );
         });
       }); // Slide View
     
       describe('Photic Controls View', function() {
+        beforeEach(function() {
+          var firstSlide = photicModel.get('slides').at(0);
+          photicModel.setCurrentSlide(firstSlide);
+        });
+
         describe('Next button', function() {
           it('renders on load', function () {
             assert.lengthOf($('a#next'), 1, 'a#next created');
@@ -128,10 +145,7 @@ define(
             assert.isTrue(audio.paused, 'audio is not playing');
             assert.equal(played.length, 0, 'audio has not been played');
             playBtn.trigger('click');
-            // TODO: AudioControl.playAudio is triggered but audio is
-            // still paused.
             assert.isFalse(audio.paused, 'audio is playing');
-            assert.equal(played.length, 1, 'audio been played');
           });
 
           it('becomes a Pause button when clicked', function() {
@@ -151,7 +165,19 @@ define(
         }); // Play button
 
         describe('Pause button', function() {
-          it('pauses the slideshow and audio when clicked');
+          it('pauses the slideshow and audio when clicked', function() {
+            var playBtn = $('a#play'),
+              audio = $('#audio')[0],
+              played = audio.played,
+              pauseBtn;
+            assert.isTrue(audio.paused, 'audio is not playing');
+            assert.equal(played.length, 0, 'audio has not been played');
+            playBtn.trigger('click');
+            assert.isFalse(audio.paused, 'audio is playing');
+            pauseBtn = $('a#pause');
+            pauseBtn.trigger('click');
+            assert.isTrue(audio.paused, 'audio is paused');
+          });
 
           it('becomes a play button when clicked', function() {
             var playBtn = $('a#play');
@@ -177,19 +203,6 @@ define(
       }); // Photic Controls View
 
       describe('Audio View', function() {
-
-        beforeEach(function() {
-          router.navigate('photic/456', {trigger: true});
-          assert.equal(server.requests.length, 1,
-                       'One external request was made');
-          var request = server.requests[0];
-          request.respond(
-            200,
-            {"Content-Type": "application/json"},
-            photicJson
-          );
-        });
-
         it('renders on load', function () {
           var audio = $('audio#audio'),
             source = $('audio source');

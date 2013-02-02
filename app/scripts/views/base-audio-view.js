@@ -1,8 +1,6 @@
-define(['scripts/views/base-view', 'underscore'], function(BaseView, _) {
+define(['scripts/views/base-view'], function(BaseView) {
   var BaseAudioView = BaseView.extend({
-      audio: _.memoize(function() {
-        return document.getElementById('audio');
-      })
+      audio: function() { return document.getElementById('audio'); }
   });
 
   return BaseAudioView;

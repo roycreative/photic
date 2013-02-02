@@ -1,46 +1,38 @@
 define(
   [
     'handlebars',
-    'scripts/views/base-audio-view',
+    'scripts/views/base-view',
     'text!scripts/templates/audio-elapsed.html',
     'underscore'
   ],
-  function(Handlebars, BaseAudioView, audioElapsedTemplate, _) {
-    var AudioElapsedView = BaseAudioView.extend({
+  function(Handlebars, BaseView, audioElapsedTemplate, _) {
+    var AudioElapsedView = BaseView.extend({
       initialize: function() {
         _.bindAll(
           this,
-          'playAudio',
           'render',
           'updateElapsedTime'
         );
-        this.model.bind('playAudio', this.playAudio);
+        this.model.bind('audioTimeUpdate', this.updateElapsedTime);
       },
 
-      elapsedDisplay: _.memoize(function() {
-        return this.$('#elapsedDisplay');
-      }),
+      elapsedDisplay: function() { return this.$('#elapsedDisplay'); },
 
       template: Handlebars.compile(audioElapsedTemplate),
 
       render: function() {
         this.$el.html(this.template(this));
+        return this;
       },
 
-      playAudio: function() {
-        this.audio().addEventListener(
-          'timeupdate', this.updateElapsedTime, false);
-      },
-
-      updateElapsedTime: function(e) {
-        var time = e.target.currentTime,
-          min = Math.floor(time / 60),
-          sec = Math.floor(time % 60);
+      updateElapsedTime: function(currentTime) {
+        var min = Math.floor(currentTime / 60),
+          sec = Math.floor(currentTime  % 60);
         this.elapsedDisplay().html(min + ":" + sec);
       },
 
       destroy: function() {
-        this.model.off('playAudio', this.playAudio);
+        this.model.off('audioTimeUpdate', this.playAudio);
         this.$el.empty();
       }
     });
