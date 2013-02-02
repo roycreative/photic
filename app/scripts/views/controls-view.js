@@ -1,14 +1,12 @@
 define(
   [
-    'text!scripts/templates/controls.html',
-    'backbone',
     'handlebars',
+    'scripts/views/base-view',
+    'text!scripts/templates/controls.html',
     'underscore'
   ],
-  function(controlsTemplate) {
-
-    var ControlsView = Backbone.View.extend({
-
+  function(Handlebars, BaseView, controlsTemplate, _) {
+    var ControlsView = BaseView.extend({
       initialize: function() {
         _.bindAll(this, 'render', 'nextSlide', 'previousSlide');
       },
@@ -59,11 +57,13 @@ define(
       render: function() {
         this.$el.html(this.template(this));
         return this;
-      }
+      },
 
+      destroy: function() {
+        this.$el.empty();
+      }
     });
 
     return ControlsView;
-
   }
 );

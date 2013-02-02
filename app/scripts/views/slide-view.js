@@ -1,9 +1,11 @@
 define(
-  ['text!scripts/templates/slide.html', 'backbone', 'handlebars'],
-  function (slideTemplate) {
+  [
+    'handlebars',
+    'scripts/views/base-view',
+    'text!scripts/templates/slide.html'
+  ], function (Handlebars, BaseView, slideTemplate) {
 
-    var SlideView = Backbone.View.extend({
-
+    var SlideView = BaseView.extend({
       initialize: function() {
         _.bindAll(this, 'render', 'imgSrc');
       },
@@ -15,8 +17,11 @@ define(
         return this;
       },
 
-      imgSrc: function() {return this.model.get('img');}
+      imgSrc: function() {return this.model.get('img');},
 
+      destroy: function() {
+        this.$el.empty();
+      }
     });
 
     return SlideView;
