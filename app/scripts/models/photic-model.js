@@ -2,14 +2,20 @@ define(
   [
     'scripts/models/slide-collection',
     'scripts/models/slide-model',
-    'relational'
-  ], function(SlideCollection, SlideModel, Backbone) {
+    'relational',
+    'underscore'
+  ], function(SlideCollection, SlideModel, Backbone, _) {
   var PhoticModel = Backbone.RelationalModel.extend({
     initialize: function() {
-      _.bindAll(this, 'updateCurrentSlide');
+      _.bindAll(
+        this,
+        'seekCurrentSlide',
+        'updateCurrentSlide'
+      );
       this.currentSlideIndex = (this.get('slides').length > 0) ? 0 : null;
       this.nextSlideTime = null;
       this.bind('audioTimeUpdate', this.updateCurrentSlide);
+      this.bind('audioSeeked', this.seekCurrentSlide);
     },
 
     urlRoot: '/photic',
@@ -49,20 +55,37 @@ define(
       return this.get('slides').at(previousIndex);
     },
 
-    updateCurrentSlide: function(currentTime) {
+    setNextSlideTime: function(time) {
       var nextSlide;
+      if (time !== undefined) {
+        this.nextSlideTime = time;
+        return;
+      }
+      nextSlide = this.getNextSlide();
+      if (nextSlide === null) {
+        this.nextSlideTime = Number.POSITIVE_INFINITY;
+      } else {
+        this.nextSlideTime = nextSlide.get('showSec');
+      }
+    },
+
+    updateCurrentSlide: function(currentTime) {
       if (this.nextSlideTime === null) {
         this.nextSlideTime = this.getNextSlide().get('showSec');
       }
       if (currentTime > this.nextSlideTime) {
         this.setCurrentSlide(this.getNextSlide());
-        nextSlide = this.getNextSlide();
-        if (nextSlide === null) {
-          this.nextSlideTime = Number.POSITIVE_INFINITY;
-        } else {
-          this.nextSlideTime = this.getNextSlide().get('showSec');
-        }
+        this.setNextSlideTime();
       }
+    },
+
+    seekCurrentSlide: function(currentTime) {
+      var newCurrentSlide = _.max(
+        this.get('slides').models,
+        function (slide) { return currentTime - slide.get('showSec'); }
+      );
+      this.setCurrentSlide(newCurrentSlide);
+      this.setNextSlideTime();
     }
   });
 

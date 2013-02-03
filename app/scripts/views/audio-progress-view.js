@@ -28,9 +28,10 @@ define(
         this.progressBar().val(currentTime);
       },
 
-      changeAudioTime: function(evt) {
+      changeAudioTime: function() {
         var seekedTime = this.progressBar().val();
         this.audio().currentTime = seekedTime;
+        this.model.trigger('audioSeeked', seekedTime);
       },
 
       progressBar: function() { return this.$('#progressBar'); },
