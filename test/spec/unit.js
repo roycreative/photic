@@ -147,10 +147,17 @@ var tests = function() {
         });
 
         it('gets the previous slide on #getPreviousSlide', function () {
-          var previousSlide = photic.getPreviousSlide();
+          var nextSlide = photic.getNextSlide(),
+            previousSlide;
+          assert.equalSlides(
+            nextSlide,
+            SlideModel.findOrCreate(photicData['slides'][1])
+          );
+          photic.setCurrentSlide(nextSlide);
+          previousSlide = photic.getPreviousSlide();
           assert.equalSlides(
             previousSlide,
-            SlideModel.findOrCreate(photicData['slides'][3])
+            SlideModel.findOrCreate(photicData['slides'][0])
           );
         });
 

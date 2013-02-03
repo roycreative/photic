@@ -32,7 +32,7 @@ define(
     },
 
     setCurrentSlide: function(model) {
-      if (model == null) return;
+      if (model === null) return;
       this.currentSlideIndex = this.get('slides').indexOf(model);
       this.trigger('currentSlideChanged', model);
     },
