@@ -29,8 +29,8 @@
       "_id": 6,
       "img": "sample_resources/400x700.gif",
       "thumb": "sample_resources/thumb.gif",
-      "order": 2,
-      "showSec": 7
+      "order": 3,
+      "showSec": 14
     }
   ]
 }
