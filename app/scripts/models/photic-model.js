@@ -1,6 +1,10 @@
-define(['scripts/models/slide-model', 'relational'], function(SlideModel) {
+define(
+  [
+    'scripts/models/slide-collection',
+    'scripts/models/slide-model',
+    'relational'
+  ], function(SlideCollection, SlideModel, Backbone) {
   var PhoticModel = Backbone.RelationalModel.extend({
-
     initialize: function() {
       this.currentSlideIndex = (this.get('slides').length > 0) ? 0 : null;
     },
@@ -13,6 +17,7 @@ define(['scripts/models/slide-model', 'relational'], function(SlideModel) {
       type: Backbone.HasMany,
       key: 'slides',
       relatedModel: SlideModel,
+      collectionType: SlideCollection,
       reverseRelation: {
         key: 'photic',
         includeInJSON: '_id'
@@ -39,7 +44,6 @@ define(['scripts/models/slide-model', 'relational'], function(SlideModel) {
       if (previousIndex < 0) previousIndex = (this.get('slides').length - 1);
       return this.get('slides').at(previousIndex);
     }
-
   });
 
   // backbone-relational setup

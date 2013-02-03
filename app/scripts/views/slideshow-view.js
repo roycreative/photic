@@ -7,10 +7,6 @@ define(
   ], function(Handlebars, BaseView, SlideView, slideshowTemplate) {
 
     var SlideshowView = BaseView.extend({
-      tagName: 'div',
-
-      className: 'slideshow-inner',
-
       initialize: function() {
         _.bindAll(this, 'render', 'render_slide');
         this.model.bind('currentSlideChanged', this.render_slide);
@@ -33,10 +29,8 @@ define(
       destroy: function() {
         // remove event bindings
         this.model.off('currentSlideChanged', this.render_slide);
-
         // destroy children
         this.currentSlideView.destroy();
-
         // remove self from DOM
         this.$el.empty();
       }
