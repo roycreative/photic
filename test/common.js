@@ -2,18 +2,18 @@ require.config({
   paths: {
     // app paths
     backbone: 'scripts/components/backbone/backbone',
-    handlebars: 'scripts/components/handlebars/handlebars-1.0.0-rc.1',
+    handlebars: 'scripts/components/handlebars/handlebars',
     jquery: 'scripts/components/jquery/jquery',
     relational: 'scripts/components/backbone-relational/backbone-relational',
-    scripts: 'scripts',
+    photic: 'scripts',
     text: 'scripts/components/requirejs-text/text',
     underscore: 'scripts/components/underscore/underscore',
     // testing framework paths
-    chai: "lib/chai",
-    mocha: "lib/mocha/mocha",
-    resources: "sample_resources",
-    sinon: "lib/sinon",
-    spec: "spec"
+    chai: 'lib/chai',
+    mocha: 'lib/mocha/mocha',
+    resources: 'sample_resources',
+    sinon: 'lib/sinon',
+    spec: 'spec'
   },
 
   shim: {

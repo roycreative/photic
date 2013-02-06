@@ -1,8 +1,8 @@
 require(['common'], function() {
   require(
     [
-      'scripts/models/photic-model',
-      'scripts/views/photic-view',
+      'photic/models/photic-model',
+      'photic/views/photic-view',
       'text!resources/photic.json'
     ], function(PhoticModel, PhoticView, photicData) {
       var photicJson = JSON.parse(photicData),

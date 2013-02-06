@@ -1,11 +1,11 @@
 define(
   [
     'handlebars',
-    'scripts/views/audio-elapsed-view',
-    'scripts/views/audio-progress-view',
-    'scripts/views/audio-volume-view',
-    'scripts/views/base-audio-view',
-    'text!scripts/templates/audio.html',
+    'photic/views/audio-elapsed-view',
+    'photic/views/audio-progress-view',
+    'photic/views/audio-volume-view',
+    'photic/views/base-audio-view',
+    'text!photic/templates/audio.html',
     'underscore'
   ],
   function(

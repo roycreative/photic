@@ -1,8 +1,8 @@
 define(
   [
     'chai',
-    'scripts/models/photic-model',
-    'scripts/models/slide-model',
+    'photic/models/photic-model',
+    'photic/models/slide-model',
     'text!resources/photic.json',
     'backbone',
     'mocha',

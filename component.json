@@ -1,0 +1,17 @@
+{
+  "name": "photic",
+  "version": "0.0.0",
+  "dependencies": {
+    "backbone": "0.9.10",
+    "backbone-relational": "0.7.0",
+    "jquery": "1.9.1",
+    "handlebars": "1.0.0-rc.2",
+    "requirejs": "2.1.4",
+    "requirejs-text": "2.0.5",
+    "underscore": "1.4.4"
+  },
+  "devDependencies": {
+    "sinon.js": "6ca23f5434a06dfd0b6c5fcdc8c81cb27c89b832"
+  },
+}
+

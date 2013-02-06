@@ -1,8 +1,8 @@
 define(
   [
     'handlebars',
-    'scripts/views/base-audio-view',
-    'text!scripts/templates/audio-progress.html',
+    'photic/views/base-audio-view',
+    'text!photic/templates/audio-progress.html',
     'underscore'
   ],
   function(Handlebars, BaseAudioView, audioProgressTemplate, _) {

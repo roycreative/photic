@@ -1,9 +1,9 @@
 define(
   [
     'chai',
-    'scripts/models/photic-model',
-    'scripts/routes/photic-router',
-    'scripts/views/photic-view',
+    'photic/models/photic-model',
+    'photic/routes/photic-router',
+    'photic/views/photic-view',
     'text!resources/photic.json',
     'sinon',
     'mocha',
