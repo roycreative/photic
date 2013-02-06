@@ -2,10 +2,10 @@ require.config({
   paths: {
     // required for photic
     backbone: 'scripts/components/backbone/backbone',
-    handlebars: 'scripts/components/handlebars/handlebars-1.0.0-rc.1',
+    handlebars: 'scripts/components/handlebars/handlebars-1.0.0-rc.2',
     jquery: 'scripts/components/jquery/jquery',
+    photic: 'scripts',
     relational: 'scripts/components/backbone-relational/backbone-relational',
-    scripts: 'scripts',
     text: 'scripts/components/requirejs-text/text',
     underscore: 'scripts/components/underscore/underscore',
     // used for demo
@@ -38,7 +38,7 @@ require.config({
 
 require(
   [
-    'scripts/app',
+    'photic/app',
     'text!resources/photic.json',
     'sinon'
   ],

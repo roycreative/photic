@@ -1,12 +1,12 @@
 define(
   [
     'handlebars',
-    'scripts/models/photic-model',
-    'scripts/views/audio-view',
-    'scripts/views/base-view',
-    'scripts/views/controls-view',
-    'scripts/views/slideshow-view',
-    'text!scripts/templates/photic.html',
+    'photic/models/photic-model',
+    'photic/views/audio-view',
+    'photic/views/base-view',
+    'photic/views/controls-view',
+    'photic/views/slideshow-view',
+    'text!photic/templates/photic.html',
     'underscore'
   ],
   function (

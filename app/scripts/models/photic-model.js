@@ -1,7 +1,7 @@
 define(
   [
-    'scripts/models/slide-collection',
-    'scripts/models/slide-model',
+    'photic/models/slide-collection',
+    'photic/models/slide-model',
     'relational',
     'underscore'
   ], function(SlideCollection, SlideModel, Backbone, _) {

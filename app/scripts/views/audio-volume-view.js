@@ -1,8 +1,8 @@
 define(
   [
     'handlebars',
-    'scripts/views/base-audio-view',
-    'text!scripts/templates/audio-volume.html',
+    'photic/views/base-audio-view',
+    'text!photic/templates/audio-volume.html',
     'underscore'
   ],
   function(Handlebars, BaseAudioView, audioVolumeTemplate, _) {

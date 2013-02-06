@@ -1,7 +1,7 @@
 define(
   [
-    'scripts/views/photic-view',
-    'scripts/models/photic-model',
+    'photic/views/photic-view',
+    'photic/models/photic-model',
     'relational',
     'jquery'
   ], function(PhoticView, PhoticModel) {

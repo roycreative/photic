@@ -1,9 +1,9 @@
 define(
   [
     'handlebars',
-    'scripts/views/base-view',
-    'scripts/views/slide-view',
-    'text!scripts/templates/slideshow.html'
+    'photic/views/base-view',
+    'photic/views/slide-view',
+    'text!photic/templates/slideshow.html'
   ], function(Handlebars, BaseView, SlideView, slideshowTemplate) {
 
     var SlideshowView = BaseView.extend({

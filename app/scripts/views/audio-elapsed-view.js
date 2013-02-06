@@ -1,8 +1,8 @@
 define(
   [
     'handlebars',
-    'scripts/views/base-view',
-    'text!scripts/templates/audio-elapsed.html',
+    'photic/views/base-view',
+    'text!photic/templates/audio-elapsed.html',
     'underscore'
   ],
   function(Handlebars, BaseView, audioElapsedTemplate, _) {

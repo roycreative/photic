@@ -1,7 +1,7 @@
 define(
   [
     'backbone',
-    'scripts/models/slide-model'
+    'photic/models/slide-model'
   ],
   function(Backbone, SlideModel) {
     var SlideCollection = Backbone.Collection.extend({

@@ -1,8 +1,8 @@
 define(
   [
     'handlebars',
-    'scripts/views/base-view',
-    'text!scripts/templates/controls.html',
+    'photic/views/base-view',
+    'text!photic/templates/controls.html',
     'underscore'
   ],
   function(Handlebars, BaseView, controlsTemplate, _) {
