@@ -13,7 +13,7 @@ define(
       },
 
       show_photic: function(_id) {
-        var photicModel = PhoticModel.findOrCreate({_id: _id});
+        var photicModel = PhoticModel.findOrCreate({id: _id});
         new PhoticView({
           model: photicModel,
           el: $('#photic')

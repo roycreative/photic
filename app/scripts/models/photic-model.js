@@ -20,16 +20,13 @@ define(
 
     urlRoot: '/photic',
 
-    idAttribute: '_id',
-
     relations: [{
       type: Backbone.HasMany,
       key: 'slides',
       relatedModel: SlideModel,
       collectionType: SlideCollection,
       reverseRelation: {
-        key: 'photic',
-        includeInJSON: '_id'
+        key: 'photic'
       }
     }],
 
