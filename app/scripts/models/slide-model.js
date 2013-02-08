@@ -1,6 +1,6 @@
 define(['relational'], function() {
   var SlideModel = Backbone.RelationalModel.extend({
-    urlRoot: '/slides'
+    urlRoot: '/slide'
   });
 
   // backbone-relational setup
