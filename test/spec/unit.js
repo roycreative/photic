@@ -21,12 +21,10 @@ var tests = function() {
   assert.equalSlides = function (actualSlide, expected) {
     assert.equal(actualSlide.get("order"), expected.get("order"),
                  'actualSlide#order equals expected value');
-    assert.equal(actualSlide.get("img"), expected.get("img"),
+    assert.equal(actualSlide.get("photo").image, expected.get("photo").image,
                  'actualSlide#img equals expected value');
-    assert.equal(actualSlide.get("thumb"), expected.get("thumb"),
-                 'actualSlide#thumb equals expected value');
-    assert.equal(actualSlide.get("showSec"), expected.get("showSec"),
-                 'actualSlide#showSec equals expected value');
+    assert.equal(actualSlide.get("displayTime"), expected.get("displayTime"),
+                 'actualSlide#displayTime equals expected value');
   };
 
   describe('Unit Tests', function() {

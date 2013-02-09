@@ -22,7 +22,7 @@ define(
         'change #progressBar': 'changeAudioTime'
       },
 
-      audioLen: function() { return this.model.get('audioLen'); },
+      audioLen: function() { return this.audio().duration },
 
       updateProgressBar: function(currentTime) {
         this.progressBar().val(currentTime);

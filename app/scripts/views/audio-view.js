@@ -38,7 +38,7 @@ define(
         this.model.trigger('audioTimeUpdate', evt.target.currentTime);
       },
 
-      audioSrc: function() { return this.model.get('audioSrc'); },
+      audioSrc: function() { return this.model.get('audio'); },
 
       template: Handlebars.compile(audioTemplate),
 
