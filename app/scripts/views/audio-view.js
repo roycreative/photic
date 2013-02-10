@@ -25,10 +25,12 @@ define(
           'pauseAudio',
           'playAudio',
           'render',
+          'seekAudioToCurrentSlide',
           'timeUpdate'
         );
         this.model.bind('playAudio', this.playAudio);
         this.model.bind('pauseAudio', this.pauseAudio);
+        this.model.bind('currentSlideChanged', this.seekAudioToCurrentSlide);
         this.audioElapsedView = new AudioElapsedView({model: this.model});
         this.audioProgressView = new AudioProgressView({model: this.model});
         this.audioVolumeView = new AudioVolumeView({model: this.model});
@@ -60,6 +62,16 @@ define(
 
       pauseAudio: function() {
         this.audio().pause();
+      },
+
+      seekAudioToCurrentSlide: function(slide) {
+        // Getting the error: Uncaught Error: INVALID_STATE_ERR: DOM Exception 11
+        // This was only happening on the initial currentSlideChanged trigger
+        // Added follwing if statement to circumvent
+        if (this.audio().currentTime > 0) {
+          this.audio().currentTime = slide.get('displayTime');
+        }
+        
       },
 
       destroy: function() {
