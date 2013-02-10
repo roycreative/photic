@@ -21,14 +21,14 @@ define(
         photicModel.fetch({
           success: function (model) {
             model.fetchRelated('slides', {
-              success: function(model) {
+              success: function() {
                 photicModel.setCurrentSlide(photicModel.get('slides').at(0));
               },
               error: function (model, xhr) {
                 console.log(model);
                 console.log(xhr);
               }
-            })
+            });
           },
           error: function (model, xhr) {
             console.log(model);

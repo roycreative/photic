@@ -22,17 +22,20 @@ define(
         'change #progressBar': 'changeAudioTime'
       },
 
-      audioLen: function() { return this.audio().duration },
+      audioLen: function() { return this.model.get('audioLength'); },
 
       updateProgressBar: function(currentTime) {
         this.progressBar().val(currentTime);
       },
 
-      changeAudioTime: function() {
-        var seekedTime = this.progressBar().val();
-        this.audio().currentTime = seekedTime;
-        this.model.trigger('audioSeeked', seekedTime);
-      },
+      changeAudioTime: _.throttle(
+        function() {
+          this.model.unbind('audioTimeUpdate', this.updateProgressBar);
+          var seekedTime = this.progressBar().val();
+          this.audio().currentTime = seekedTime;
+          this.model.trigger('audioSeeked', seekedTime);
+          this.model.bind('audioTimeUpdate', this.updateProgressBar);
+        }, 500),
 
       progressBar: function() { return this.$('#progressBar'); },
 
