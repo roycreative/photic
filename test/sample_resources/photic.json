@@ -1,36 +1,48 @@
 {
-  "_id": 456,
-  "title": "Testing the Photic audio slideshow",
-  "audioSrc": "sample_resources/test.wav",
-  "audioLen": 66.22,
+  "audio": "sample_resources/test.wav",
+  "audioLength": 66,
+  "resourceUri": "http://api.photodubber.com/api/v1/photic/1/",
+  "title": "Testing the stuff",
   "slides": [
     {
-      "_id": 7,
-      "img": "sample_resources/450x300.gif",
-      "thumb": "sample_resources/thumb.gif",
+      "displayTime": "0",
       "order": 0,
-      "showSec": 0
+      "photic": "http://api.photodubber.com/api/v1/photic/1/",
+      "resourceUri": "http://api.photodubber.com/api/v1/slide/1/",
+      "photo": {
+        "image": "sample_resources/450x300.gif",
+        "resourceUri": "http://api.photodubber.com/api/v1/photo/1/"
+      }
     },
     {
-      "_id": 8,
-      "img": "sample_resources/600x400.gif",
-      "thumb": "sample_resources/thumb.gif",
+      "displayTime": "4",
       "order": 1,
-      "showSec": 4
+      "photic": "http://api.photodubber.com/api/v1/photic/1/",
+      "resourceUri": "http://api.photodubber.com/api/v1/slide/2/",
+      "photo": {
+        "image": "sample_resources/600x400.gif",
+        "resourceUri": "http://api.photodubber.com/api/v1/photo/2/"
+      }
     },
     {
-      "_id": 9,
-      "img": "sample_resources/700x800.gif",
-      "thumb": "sample_resources/thumb.gif",
+      "displayTime": "7",
       "order": 2,
-      "showSec": 7
+      "photic": "http://api.photodubber.com/api/v1/photic/1/",
+      "resourceUri": "http://api.photodubber.com/api/v1/slide/3/",
+      "photo": {
+        "image": "sample_resources/700x800.gif",
+        "resourceUri": "http://api.photodubber.com/api/v1/photo/3/"
+      }
     },
     {
-      "_id": 6,
-      "img": "sample_resources/400x700.gif",
-      "thumb": "sample_resources/thumb.gif",
+      "displayTime": "14",
       "order": 3,
-      "showSec": 14
+      "photic": "http://api.photodubber.com/api/v1/photic/1/",
+      "resourceUri": "http://api.photodubber.com/api/v1/slide/4/",
+      "photo": {
+        "image": "sample_resources/400x700.gif",
+        "resourceUri": "http://api.photodubber.com/api/v1/photo/4/"
+      }
     }
   ]
 }

@@ -20,16 +20,13 @@ define(
 
     urlRoot: '/photic',
 
-    idAttribute: '_id',
-
     relations: [{
       type: Backbone.HasMany,
       key: 'slides',
       relatedModel: SlideModel,
       collectionType: SlideCollection,
       reverseRelation: {
-        key: 'photic',
-        includeInJSON: '_id'
+        key: 'photic'
       }
     }],
 
@@ -65,13 +62,13 @@ define(
       if (nextSlide === null) {
         this.nextSlideTime = Number.POSITIVE_INFINITY;
       } else {
-        this.nextSlideTime = nextSlide.get('showSec');
+        this.nextSlideTime = nextSlide.get('displayTime');
       }
     },
 
     updateCurrentSlide: function(currentTime) {
       if (this.nextSlideTime === null) {
-        this.nextSlideTime = this.getNextSlide().get('showSec');
+        this.nextSlideTime = this.getNextSlide().get('displayTime');
       }
       if (currentTime > this.nextSlideTime) {
         this.setCurrentSlide(this.getNextSlide());
@@ -82,7 +79,7 @@ define(
     seekCurrentSlide: function(currentTime) {
       var newCurrentSlide = _.max(
         this.get('slides').models,
-        function (slide) { return currentTime - slide.get('showSec'); }
+        function (slide) { return currentTime - slide.get('displayTime'); }
       );
       this.setCurrentSlide(newCurrentSlide);
       this.setNextSlideTime();

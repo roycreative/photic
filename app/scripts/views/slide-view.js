@@ -17,7 +17,7 @@ define(
         return this;
       },
 
-      imgSrc: function() {return this.model.get('img');},
+      imgSrc: function() {return this.model.get('photo').image;},
 
       destroy: function() {
         this.$el.empty();

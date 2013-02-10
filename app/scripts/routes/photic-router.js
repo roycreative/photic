@@ -13,14 +13,22 @@ define(
       },
 
       show_photic: function(_id) {
-        var photicModel = PhoticModel.findOrCreate({_id: _id});
+        var photicModel = PhoticModel.findOrCreate({id: _id});
         new PhoticView({
           model: photicModel,
           el: $('#photic')
         });
         photicModel.fetch({
           success: function (model) {
-            photicModel.setCurrentSlide(model.get('slides').at(0));
+            model.fetchRelated('slides', {
+              success: function() {
+                photicModel.setCurrentSlide(photicModel.get('slides').at(0));
+              },
+              error: function (model, xhr) {
+                console.log(model);
+                console.log(xhr);
+              }
+            });
           },
           error: function (model, xhr) {
             console.log(model);
