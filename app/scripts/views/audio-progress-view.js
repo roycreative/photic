@@ -12,10 +12,12 @@ define(
           this,
           'audioLen',
           'changeAudioTime',
+          'handleSlideChange',
           'render',
           'updateProgressBar'
         );
         this.model.bind('audioTimeUpdate', this.updateProgressBar);
+        this.model.bind('currentSlideChanged', this.handleSlideChange);
       },
 
       events: {
@@ -26,6 +28,10 @@ define(
 
       updateProgressBar: function(currentTime) {
         this.progressBar().val(currentTime);
+      },
+      
+      handleSlideChange: function(slide) {
+        this.updateProgressBar(slide.get('displayTime'));
       },
 
       changeAudioTime: _.throttle(
