@@ -10,10 +10,12 @@ define(
       initialize: function() {
         _.bindAll(
           this,
+          'handleSlideChange',
           'render',
           'updateElapsedTime'
         );
         this.model.bind('audioTimeUpdate', this.updateElapsedTime);
+        this.model.bind('currentSlideChanged', this.handleSlideChange);
       },
 
       elapsedDisplay: function() { return this.$('#elapsedDisplay'); },
@@ -29,6 +31,10 @@ define(
         var min = Math.floor(currentTime / 60),
           sec = Math.floor(currentTime  % 60);
         this.elapsedDisplay().html(min + ":" + sec);
+      },
+
+      handleSlideChange: function(slide) {
+        this.updateElapsedTime(slide.get('displayTime'));
       },
 
       destroy: function() {

@@ -12,10 +12,12 @@ define(
           this,
           'audioLen',
           'changeAudioTime',
+          'handleSlideChange',
           'render',
           'updateProgressBar'
         );
         this.model.bind('audioTimeUpdate', this.updateProgressBar);
+        this.model.bind('currentSlideChanged', this.handleSlideChange);
       },
 
       events: {
@@ -27,14 +29,21 @@ define(
       updateProgressBar: function(currentTime) {
         this.progressBar().val(currentTime);
       },
+      
+      handleSlideChange: function(slide) {
+        this.updateProgressBar(slide.get('displayTime'));
+      },
 
       changeAudioTime: _.throttle(
         function() {
-          this.model.unbind('audioTimeUpdate', this.updateProgressBar);
-          var seekedTime = this.progressBar().val();
-          this.audio().currentTime = seekedTime;
+          var seekedTime = this.progressBar().val(),
+            audio = this.audio();
           this.model.trigger('audioSeeked', seekedTime);
-          this.model.bind('audioTimeUpdate', this.updateProgressBar);
+          // TODO: Nasty timing issue. Setting audio.currentTime triggers the audio
+          // element's "timeupdate" event. This triggers audio-view.timeUpdate which
+          // triggers an event with evt.target.currentTime. I've introduced the delay
+          // below because the target's currentTime wasn't being updated without it
+          _.delay(function() { audio.currentTime = seekedTime; }, 500);
         }, 500),
 
       progressBar: function() { return this.$('#progressBar'); },

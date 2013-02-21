@@ -37,6 +37,7 @@ define(
     setCurrentSlide: function(model) {
       if (model === null) return;
       this.currentSlideIndex = this.get('slides').indexOf(model);
+      this.setNextSlideTime();
       this.trigger('currentSlideChanged', model);
     },
 
@@ -72,17 +73,22 @@ define(
       }
       if (currentTime > this.nextSlideTime) {
         this.setCurrentSlide(this.getNextSlide());
-        this.setNextSlideTime();
       }
     },
 
     seekCurrentSlide: function(currentTime) {
-      var newCurrentSlide = _.max(
+      var newCurrentSlide = _.min(
         this.get('slides').models,
-        function (slide) { return currentTime - slide.get('displayTime'); }
+        function (slide) {
+          var check = currentTime - slide.get('displayTime');
+          if (check >= 0) {
+            return check;
+          } else {
+            return Number.POSITIVE_INFINITY;
+          }
+        }
       );
       this.setCurrentSlide(newCurrentSlide);
-      this.setNextSlideTime();
     }
   });
 
