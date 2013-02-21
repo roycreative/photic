@@ -75,7 +75,7 @@ define(
           photicModel.setCurrentSlide(firstSlide);
           assert.include(
             photicView.slideshowView.currentSlideView.$el.html(),
-            firstSlide.get('img'),
+            firstSlide.get('photo').image,
             'Rendered SlideView contains slide img.'
           );
         });
@@ -213,7 +213,7 @@ define(
         it('loads an audio source', function () {
           var source = $('audio source');
           assert.lengthOf(source, 1, 'audio source created');
-          assert.equal(source.attr('src'), photicJson.audioSrc,
+          assert.equal(source.attr('src'), photicJson.audio,
                        'audio source set');
         });
 
