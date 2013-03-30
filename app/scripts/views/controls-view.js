@@ -13,8 +13,7 @@ define(
 
       events: {
         'click .prevArrow': 'previousSlide',
-        'click .nextArrow': 'nextSlide',
-        'click .currentSlide': 'togglePlay',
+        'click .nextArrow': 'nextSlide'
       },
 
       previousSlide: function(evt) {
@@ -27,11 +26,6 @@ define(
         evt.preventDefault();
         var next = this.model.getNextSlide();
         this.model.setCurrentSlide(next);
-      },
-
-      togglePlay: function(evt) {
-        evt.preventDefault();
-        this.model.trigger('toggleAudio');
       },
 
       template: Handlebars.compile(controlsTemplate),

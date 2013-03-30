@@ -1,8 +1,12 @@
-<div>
-  <div id="elapsed"></div>
-  <div id="progress"></div>
-  <div id="volume"></div>
-</div>
+<div class="timeline">
+  <div class="timeElapsed"></div>
+    <!-- Adjust left value to position checkpoint -->
+    <a href="#" class="checkPoint" style="left:20%"><span><img src="" /></span></a>
+    <a href="#" class="checkPoint" style="left:40%"><span><img src="" /></span></a>
+    <a href="#" class="checkPoint" style="left:60%"><span><img src="" /></span></a>
+    <a href="#" class="checkPoint" style="left:80%"><span><img src="" /></span></a>
+    <div class="timeTotal"><p>{{ audioLength }}</p></div>
+</div>	
 <audio id="audio" preload="auto">
   <source src="{{ audioSrc }}" type="audio/wav">
 </audio>

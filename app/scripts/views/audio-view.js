@@ -21,12 +21,14 @@ define(
       initialize: function() {
         _.bindAll(
           this,
+          'audioLength',
           'audioSrc',
           'pauseAudio',
           'playAudio',
           'render',
           'setAudioToCurrentSlide',
-          'timeUpdate'
+          'timeUpdate',
+          'toggleAudio'
         );
         this.model.bind('toggleAudio', this.toggleAudio);
         this.model.bind('currentSlideChanged', this.setAudioToCurrentSlide);
@@ -41,35 +43,37 @@ define(
 
       audioSrc: function() { return this.model.get('audio'); },
 
+      audioLength: function() { return this.model.get('audioLength'); },
+
       template: Handlebars.compile(audioTemplate),
 
       render: function() {
         this.$el.html(this.template(this));
         this.audio().addEventListener('timeupdate', this.timeUpdate, false);
         this.assign({
-          '#elapsed': this.audioElapsedView,
+          '.timeElapsed': this.audioElapsedView,
           '#progress': this.audioProgressView,
-          '#volume': this.audioVolumeView
+          // '#volume': this.audioVolumeView
         });
         return this;
       },
 
       toggleAudio: function() {
-        if (this.audio().is_playing) {
-          this.pauseAudio();
-        } else {
+        if (this.audio().paused) {
           this.playAudio();
+        } else {
+          this.pauseAudio();
         }
       },
 
       playAudio: function() {
         this.audio().play();
-        this.model.trigger('playAudio', seekedTime);
+        this.model.trigger('playAudio');
       },
 
       pauseAudio: function() {
         this.audio().pause();
-        this.model.trigger('pauseAudio', seekedTime);
+        this.model.trigger('pauseAudio');
       },
 
       setAudioToCurrentSlide: function(slide) {

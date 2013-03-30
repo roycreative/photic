@@ -8,9 +8,13 @@ define(
 
     var SlideshowView = BaseView.extend({
       initialize: function() {
-        _.bindAll(this, 'render', 'render_slide');
+        _.bindAll(this, 'render', 'render_slide', 'togglePlay');
         this.model.bind('currentSlideChanged', this.render_slide);
         this.currentSlideView = new SlideView();
+      },
+
+      events: {
+        'click .currentSlide': 'togglePlay',
       },
 
       template: Handlebars.compile(slideshowTemplate),
@@ -24,6 +28,11 @@ define(
         this.currentSlideView.model = slide;
         this.assign('.slide', this.currentSlideView);
         return this;
+      },
+
+      togglePlay: function(evt) {
+        evt.preventDefault();
+        this.model.trigger('toggleAudio');
       },
 
       destroy: function() {
