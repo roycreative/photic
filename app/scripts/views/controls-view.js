@@ -12,10 +12,9 @@ define(
       },
 
       events: {
-        'click #prev': 'previousSlide',
-        'click #next': 'nextSlide',
-        'click #play': 'play',
-        'click #pause': 'pause'
+        'click .prevArrow': 'previousSlide',
+        'click .nextArrow': 'nextSlide',
+        'click .currentSlide': 'togglePlay',
       },
 
       previousSlide: function(evt) {
@@ -30,26 +29,9 @@ define(
         this.model.setCurrentSlide(next);
       },
 
-      play: function(evt) {
+      togglePlay: function(evt) {
         evt.preventDefault();
-        var btn = $(evt.target),
-          icon = btn.children('i');
-        btn.attr('id', 'pause');
-        // display pause icon
-        icon.addClass('icon-pause');
-        icon.removeClass('icon-play');
-        this.model.trigger('playAudio');
-      },
-
-      pause: function(evt) {
-        evt.preventDefault();
-        var btn = $(evt.target),
-          icon = btn.children('i');
-        btn.attr('id', 'play');
-        // display play icon
-        icon.addClass('icon-play');
-        icon.removeClass('icon-pause');
-        this.model.trigger('pauseAudio');
+        this.model.trigger('toggleAudio');
       },
 
       template: Handlebars.compile(controlsTemplate),

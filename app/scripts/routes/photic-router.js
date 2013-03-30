@@ -16,7 +16,7 @@ define(
         var photicModel = PhoticModel.findOrCreate({id: _id});
         new PhoticView({
           model: photicModel,
-          el: $('#photic')
+          el: $('.photicPlayer')
         });
         photicModel.fetch({
           success: function (model) {

@@ -28,8 +28,7 @@ define(
           'setAudioToCurrentSlide',
           'timeUpdate'
         );
-        this.model.bind('playAudio', this.playAudio);
-        this.model.bind('pauseAudio', this.pauseAudio);
+        this.model.bind('toggleAudio', this.toggleAudio);
         this.model.bind('currentSlideChanged', this.setAudioToCurrentSlide);
         this.audioElapsedView = new AudioElapsedView({model: this.model});
         this.audioProgressView = new AudioProgressView({model: this.model});
@@ -46,7 +45,6 @@ define(
 
       render: function() {
         this.$el.html(this.template(this));
-        this.audio().removeEventListener('timeupdate', this.timeUpdate, false);
         this.audio().addEventListener('timeupdate', this.timeUpdate, false);
         this.assign({
           '#elapsed': this.audioElapsedView,
@@ -56,12 +54,22 @@ define(
         return this;
       },
 
+      toggleAudio: function() {
+        if (this.audio().is_playing) {
+          this.pauseAudio();
+        } else {
+          this.playAudio();
+        }
+      },
+
       playAudio: function() {
         this.audio().play();
+        this.model.trigger('playAudio', seekedTime);
       },
 
       pauseAudio: function() {
         this.audio().pause();
+        this.model.trigger('pauseAudio', seekedTime);
       },
 
       setAudioToCurrentSlide: function(slide) {
