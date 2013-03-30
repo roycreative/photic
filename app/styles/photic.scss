@@ -1,0 +1,273 @@
+/* Large desktop */
+@media (min-width: 1200px) { 
+
+}
+ 
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+
+}
+ 
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+}
+
+/*
+ * Photic Styles
+ */
+
+a.brand {
+}
+
+.navbar .brand {
+	display: block;
+	float: left;
+	padding: 10px 20px 10px;
+	margin-left: -20px;
+	font-family: 'Arvo', serif;
+	text-transform: uppercase;
+	font-size: 30px;
+	font-weight: 400;
+	color: #ffffff;
+	text-shadow: 0;
+}
+
+.navbar ul.nav {
+	float: right;
+}
+
+.navbar-inverse .navbar-inner {
+background-color: #333;
+border: none;
+}
+
+h2 {
+	font-family: 'Lato', serif;
+	font-weight:400;
+	font-size: 24px;
+}
+
+.row {
+margin-left: -30px;
+}
+
+div.span4 {
+	background: #eeeeee;
+	padding: 0px 20px 10px;
+	width: 330px;
+	height: 200px;
+	margin: 15px 0px 15px 30px;
+}
+
+.hero-unit {
+padding: 0px;
+margin-bottom: 0px;
+font-size: 18px;
+font-weight: normal;
+line-height: auto;
+color: inherit;
+background-color: transparent;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+}
+
+/* photic player */
+
+.photicPlayer {
+	position:relative;
+    width:100%;
+    padding-bottom:50%;
+    height:0;
+    overflow:hidden;	
+}
+
+.viewport {
+	position:absolute;
+	left: 15%;
+    width:70%;
+    height:93%;
+	overflow:hidden;
+	background: #000;
+}
+
+.viewport img {
+	max-width: none;
+	position: absolute;
+
+}
+
+/* used for zoom or aspect ratio */
+.viewport img.vertFitZoom {
+	width: 100%;
+	top: 50%;
+}
+.viewport img.vertFitAspect {
+	height: 100%;
+}
+.viewport img.horizFitZoom {
+	height: 100%;
+}
+.viewport img.horizFitAspect {
+	width: 100%;
+	top: 50%
+}
+
+/* used for slide position */
+.viewport img.nextSlide {
+	left: 150%;
+}
+.viewport img.currentSlide {
+	left: 50%;
+}
+.viewport img.previousSlide {
+	right: 100%;
+}
+
+.leftControls {
+	position:absolute;
+	left: 0%;
+    width:15%;
+    height:93%;
+}
+
+a.prevArrow:link,
+a.prevArrow:active,
+a.prevArrow:visited  {
+	background: #000000 url(../images/prev-arrow.png) 50% 50% no-repeat;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+a.prevArrow:hover  {
+	background: #252525 url(../images/prev-arrow.png) 50% 50% no-repeat;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+.rightControls {
+	position:absolute;
+	left: 85%;
+    width:15%;
+    height:93%;
+}
+
+a.nextArrow:link,
+a.nextArrow:active,
+a.nextArrow:visited  {
+	background: #000000 url(../images/next-arrow.png) 50% 50% no-repeat;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+a.nextArrow:hover  {
+	background: #252525 url(../images/next-arrow.png) 50% 50% no-repeat;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+a.nextArrow span, a.prevArrow span {
+	display:none;
+}
+
+.timeline {
+	position:absolute;
+	left: 0;
+	bottom: 0%;
+    width:100%;
+    height:7%;
+	background:#4f4f4f url(../images/timeline-line.gif) left center repeat-x;	
+}
+
+div.timeElapsed {
+	float: left;
+}
+
+div.timeTotal {
+	float: right;
+}
+
+div.timeElapsed, div.timeTotal {
+	height: 100%;
+	background: #4f4f4f;
+	display: block;
+	display: table;
+}
+
+/* default */
+div.timeElapsed p, div.timeTotal p {
+	display: table-cell; 
+  	vertical-align: middle; 
+	font-size: 32px;
+	font-weight: 100;
+	line-height: 100%;
+	margin: 0px;
+	padding: 0px 5px;
+	color: #fff;
+}
+
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+div.timeElapsed p, div.timeTotal p { 
+	font-size: 24px;
+	font-weight: 300;
+	padding: 0px 5px;
+}
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+div.timeElapsed p, div.timeTotal p { 
+	font-size: 15px;
+	font-weight: 500;
+	padding: 0px 3px;
+}
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+div.timeElapsed p, div.timeTotal p { 
+	font-size: 10px;
+	font-weight: 800;
+	padding: 0px 2px;
+}
+}
+
+
+/* timeline checkpoints */
+
+a.checkPoint:link, 
+a.checkPoint:active, 
+a.checkPoint:visited {
+	background: transparent url(../images/timeline-checkpoint.png) center center no-repeat;
+	display:block;
+	height: 100%;
+	width: 20px;
+	position: absolute;
+}
+a.checkPoint:hover {
+	background: transparent url(../images/timeline-checkpoint-hover.png) center center no-repeat;
+}
+
+a.checkPoint span {
+	display: none;
+}
+a.checkPoint:hover span {
+	background: transparent url(../images/thumb-preview-background.png) center top no-repeat;
+	width: 150px;
+	height: 143px;
+	padding: 1px 1px 0px 1px;
+	display: block;
+	position: absolute;
+	top: -128px;
+	left: -66px;
+}
