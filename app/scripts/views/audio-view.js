@@ -43,7 +43,18 @@ define(
 
       audioSrc: function() { return this.model.get('audio'); },
 
-      audioLength: function() { return this.model.get('audioLength'); },
+      audioLength: function() {
+        var audioLength = this.model.get('audioLength'),
+          min = Math.floor(audioLength / 60),
+          sec = Math.floor(audioLength  % 60);
+        if (min < 10) {
+          min = '0' + min;
+        }
+        if (sec < 10) {
+          sec = '0' + sec;
+        }
+        return min + ':' + sec
+      },
 
       template: Handlebars.compile(audioTemplate),
 

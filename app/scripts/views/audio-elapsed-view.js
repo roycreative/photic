@@ -30,6 +30,12 @@ define(
       updateElapsedTime: function(currentTime) {
         var min = Math.floor(currentTime / 60),
           sec = Math.floor(currentTime  % 60);
+        if (min < 10) {
+          min = '0' + min;
+        }
+        if (sec < 10) {
+          sec = '0' + sec;
+        }
         this.elapsedDisplay().html(min + ":" + sec);
       },
 
