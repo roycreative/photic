@@ -271,3 +271,19 @@ a.checkPoint:hover span {
 	top: -128px;
 	left: -66px;
 }
+a#progressIndicator:link, 
+a#progressIndicator:active, 
+a#progressIndicator:visited {
+	background: transparent url(../images/timeline-checkpoint-hover.png) center center no-repeat;
+	display:block;
+	height: 100%;
+	width: 20px;
+	position: absolute;
+}
+a#progressIndicator {
+	background: transparent url(../images/timeline-checkpoint-hover.png) center center no-repeat;
+}
+
+a#progressIndicator span {
+	display: none;
+}

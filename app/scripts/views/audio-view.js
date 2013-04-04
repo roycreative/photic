@@ -63,7 +63,7 @@ define(
         this.audio().addEventListener('timeupdate', this.timeUpdate, false);
         this.assign({
           '.timeElapsed': this.audioElapsedView,
-          '#progress': this.audioProgressView,
+          '#progressBar': this.audioProgressView,
           // '#volume': this.audioVolumeView
         });
         return this;

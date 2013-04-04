@@ -21,13 +21,16 @@ define(
       },
 
       events: {
-        'change #progressBar': 'changeAudioTime'
+        // TODO: we'll need drag&drop
+        // change #progressBar': 'changeAudioTime'
       },
 
       audioLen: function() { return this.model.get('audioLength'); },
 
       updateProgressBar: function(currentTime) {
-        this.progressBar().val(currentTime);
+        var percentComplete = currentTime / this.model.get('audioLength');
+        percentComplete = percentComplete * 100;
+        this.progressBar().css('left', percentComplete.toFixed(2) + '%');
       },
       
       handleSlideChange: function(slide) {
@@ -46,7 +49,7 @@ define(
           _.delay(function() { audio.currentTime = seekedTime; }, 500);
         }, 500),
 
-      progressBar: function() { return this.$('#progressBar'); },
+      progressBar: function() { return this.$('#progressIndicator'); },
 
       template: Handlebars.compile(audioProgressTemplate),
 
