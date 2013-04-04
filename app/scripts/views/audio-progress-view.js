@@ -10,10 +10,10 @@ define(
       initialize: function() {
         _.bindAll(
           this,
-          'audioLen',
           'changeAudioTime',
           'handleSlideChange',
           'render',
+          'slides',
           'updateProgressBar'
         );
         this.model.bind('audioTimeUpdate', this.updateProgressBar);
@@ -24,8 +24,6 @@ define(
         // TODO: we'll need drag&drop
         // change #progressBar': 'changeAudioTime'
       },
-
-      audioLen: function() { return this.model.get('audioLength'); },
 
       updateProgressBar: function(currentTime) {
         var percentComplete = currentTime / this.model.get('audioLength');
@@ -51,10 +49,19 @@ define(
 
       progressBar: function() { return this.$('#progressIndicator'); },
 
+      slides: function() { 
+        var mapSlides = this.model.get('slides').map(function(slide) {
+          var percent = (slide.get('displayTime') / this.audioLength) * 100,
+            thumbImage = slide.get('photo').thumbImage || '';
+          return {percent: percent.toFixed(2), thumbImage: thumbImage}
+        }, {audioLength: this.model.get('audioLength')});
+        return mapSlides;
+      },
+
       template: Handlebars.compile(audioProgressTemplate),
 
       render: function() {
-        this.$el.html(this.template(this));
+        this.$el.html(this.template({slides: this.slides()}));
       },
 
       destroy: function() {
