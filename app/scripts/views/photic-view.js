@@ -37,7 +37,7 @@ define(
       render: function() {
         this.$el.html(this.template(this));
         this.assign({
-          '.slideshow': this.slideshowView,
+          '.viewport': this.slideshowView,
           '.controls': this.controlsView,
           '.audio': this.audioView
         });

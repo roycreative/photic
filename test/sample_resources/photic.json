@@ -5,7 +5,7 @@
   "title": "Testing the stuff",
   "slides": [
     {
-      "displayTime": "0",
+      "displayTime": 0,
       "order": 0,
       "photic": "http://api.photodubber.com/api/v1/photic/1/",
       "resourceUri": "http://api.photodubber.com/api/v1/slide/1/",
@@ -15,7 +15,7 @@
       }
     },
     {
-      "displayTime": "4",
+      "displayTime": 4,
       "order": 1,
       "photic": "http://api.photodubber.com/api/v1/photic/1/",
       "resourceUri": "http://api.photodubber.com/api/v1/slide/2/",
@@ -25,7 +25,7 @@
       }
     },
     {
-      "displayTime": "7",
+      "displayTime": 7,
       "order": 2,
       "photic": "http://api.photodubber.com/api/v1/photic/1/",
       "resourceUri": "http://api.photodubber.com/api/v1/slide/3/",
@@ -35,7 +35,7 @@
       }
     },
     {
-      "displayTime": "14",
+      "displayTime": 14,
       "order": 3,
       "photic": "http://api.photodubber.com/api/v1/photic/1/",
       "resourceUri": "http://api.photodubber.com/api/v1/slide/4/",

@@ -21,15 +21,16 @@ define(
       initialize: function() {
         _.bindAll(
           this,
+          'audioLength',
           'audioSrc',
           'pauseAudio',
           'playAudio',
           'render',
           'setAudioToCurrentSlide',
-          'timeUpdate'
+          'timeUpdate',
+          'toggleAudio'
         );
-        this.model.bind('playAudio', this.playAudio);
-        this.model.bind('pauseAudio', this.pauseAudio);
+        this.model.bind('toggleAudio', this.toggleAudio);
         this.model.bind('currentSlideChanged', this.setAudioToCurrentSlide);
         this.audioElapsedView = new AudioElapsedView({model: this.model});
         this.audioProgressView = new AudioProgressView({model: this.model});
@@ -42,26 +43,48 @@ define(
 
       audioSrc: function() { return this.model.get('audio'); },
 
+      audioLength: function() {
+        var audioLength = this.model.get('audioLength'),
+          min = Math.floor(audioLength / 60),
+          sec = Math.floor(audioLength  % 60);
+        if (min < 10) {
+          min = '0' + min;
+        }
+        if (sec < 10) {
+          sec = '0' + sec;
+        }
+        return min + ':' + sec
+      },
+
       template: Handlebars.compile(audioTemplate),
 
       render: function() {
         this.$el.html(this.template(this));
-        this.audio().removeEventListener('timeupdate', this.timeUpdate, false);
         this.audio().addEventListener('timeupdate', this.timeUpdate, false);
         this.assign({
-          '#elapsed': this.audioElapsedView,
-          '#progress': this.audioProgressView,
-          '#volume': this.audioVolumeView
+          '.timeElapsed': this.audioElapsedView,
+          '#progressBar': this.audioProgressView,
+          // '#volume': this.audioVolumeView
         });
         return this;
       },
 
+      toggleAudio: function() {
+        if (this.audio().paused) {
+          this.playAudio();
+        } else {
+          this.pauseAudio();
+        }
+      },
+
       playAudio: function() {
         this.audio().play();
+        this.model.trigger('playAudio');
       },
 
       pauseAudio: function() {
         this.audio().pause();
+        this.model.trigger('pauseAudio');
       },
 
       setAudioToCurrentSlide: function(slide) {

@@ -8,7 +8,7 @@ require(['common'], function() {
       var photicJson = JSON.parse(photicData),
         photicModel = new PhoticModel(photicJson),
         photicView = new PhoticView({
-            el: $('#photic'),
+            el: $('.photicPlayer'),
             model: photicModel
           });
         photicView.render();

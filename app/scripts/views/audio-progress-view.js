@@ -10,10 +10,11 @@ define(
       initialize: function() {
         _.bindAll(
           this,
-          'audioLen',
           'changeAudioTime',
+          'clickProgressBar',
           'handleSlideChange',
           'render',
+          'slides',
           'updateProgressBar'
         );
         this.model.bind('audioTimeUpdate', this.updateProgressBar);
@@ -21,13 +22,20 @@ define(
       },
 
       events: {
-        'change #progressBar': 'changeAudioTime'
+        // TODO: we'll need drag&drop
+        // TODO: the markup of #progressBar doesn't seem to be
+        // clickable right now
+        'click': 'clickProgressBar'
       },
 
-      audioLen: function() { return this.model.get('audioLength'); },
+      clickProgressBar: function(e) {
+        console.log(e);
+      },
 
       updateProgressBar: function(currentTime) {
-        this.progressBar().val(currentTime);
+        var percentComplete = currentTime / this.model.get('audioLength');
+        percentComplete = percentComplete * 100;
+        this.progressBar().css('left', percentComplete.toFixed(2) + '%');
       },
       
       handleSlideChange: function(slide) {
@@ -46,12 +54,21 @@ define(
           _.delay(function() { audio.currentTime = seekedTime; }, 500);
         }, 500),
 
-      progressBar: function() { return this.$('#progressBar'); },
+      progressBar: function() { return this.$('#progressIndicator'); },
+
+      slides: function() { 
+        var mapSlides = this.model.get('slides').map(function(slide) {
+          var percent = (slide.get('displayTime') / this.audioLength) * 100,
+            thumbImage = slide.get('photo').thumbImage || '';
+          return {percent: percent.toFixed(2), thumbImage: thumbImage}
+        }, {audioLength: this.model.get('audioLength')});
+        return mapSlides;
+      },
 
       template: Handlebars.compile(audioProgressTemplate),
 
       render: function() {
-        this.$el.html(this.template(this));
+        this.$el.html(this.template({slides: this.slides()}));
       },
 
       destroy: function() {

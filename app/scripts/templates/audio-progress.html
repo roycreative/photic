@@ -1,1 +1,9 @@
-<input id="progressBar" type="range" min="0" max="{{ audioLen }}" value="0">
+<a href="#" id="progressIndicator" style="left:0%">
+  <span><img src="" /></span>
+</a>
+
+{{#each slides}}
+<a href="#" class="checkPoint" style="left:{{ this.percent }}%">
+  <span><img src="{{ this.thumbImage }}" /></span>
+</a>
+{{/each}}
