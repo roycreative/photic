@@ -89,8 +89,7 @@ define(
 
         describe('Next button', function() {
           it('renders on load', function () {
-            assert.lengthOf($('a#next'), 1, 'a#next created');
-            assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
+            assert.lengthOf($('a.nextArrow'), 1, 'a.nextArrow created');
           });
 
           it('moves to the next slide when clicked', function() {
@@ -98,7 +97,7 @@ define(
             assert.equal(slideImg.attr('src'),
                          'sample_resources/450x300.gif',
                          '.slide is first data point');
-            $('a#next').trigger('click');
+            $('a.nextArrow').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
                          'sample_resources/600x400.gif',
@@ -108,8 +107,7 @@ define(
 
         describe('Previous button', function() {
           it('renders on load', function () {
-            assert.lengthOf($('a#prev'), 1, 'a#prev created');
-            assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
+            assert.lengthOf($('a.prevArrow'), 1, 'a.prevArrow created');
           });
 
           it('moves to the previous slide when clicked', function() {
@@ -118,13 +116,13 @@ define(
                          'sample_resources/450x300.gif',
                          '.slide is first data point');
             // move to the next slide
-            $('a#next').trigger('click');
+            $('a.nextArrow').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
                          'sample_resources/600x400.gif',
                          '.slide is second data point');
             // move to the previous slide
-            $('a#prev').trigger('click');
+            $('a.prevArrow').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
                          'sample_resources/450x300.gif',
