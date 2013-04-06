@@ -11,6 +11,7 @@ define(
         _.bindAll(
           this,
           'changeAudioTime',
+          'clickProgressBar',
           'handleSlideChange',
           'render',
           'slides',
@@ -22,7 +23,13 @@ define(
 
       events: {
         // TODO: we'll need drag&drop
-        // change #progressBar': 'changeAudioTime'
+        // TODO: the markup of #progressBar doesn't seem to be
+        // clickable right now
+        'click': 'clickProgressBar'
+      },
+
+      clickProgressBar: function(e) {
+        console.log(e);
       },
 
       updateProgressBar: function(currentTime) {
