@@ -178,7 +178,7 @@ define(
 
         describe('Audio Elapsed View', function() {
           it('renders on load', function () {
-            var elapsed = $('#elapsed'),
+            var elapsed = $('.timeElapsed'),
               elapsedDisplay = $('#elapsedDisplay');
             assert.lengthOf(elapsed, 1, '#elapsed created');
             assert.lengthOf(elapsedDisplay, 1, '#elapsedDisplay created');
@@ -187,21 +187,12 @@ define(
 
         describe('Audio Progress View', function() {
           it('renders on load', function () {
-            var progress = $('#progress'),
-              progressBar = $('#progressBar');
+            var progress = $('#progressBar'),
+              progressBar = $('#progressIndicator');
             assert.lengthOf(progress, 1, '#progress created');
             assert.lengthOf(progressBar, 1, '#progressBar created');
           });
         }); // Audio Progress View
-
-        describe('Audio Volume View', function() {
-          it('renders on load', function () {
-            var volume = $('#volume'),
-              volumeBar = $('#volumeBar');
-            assert.lengthOf(volume, 1, '#volume created');
-            assert.lengthOf(volumeBar, 1, '#volumeBar created');
-          });
-        }); // Audio Volume View
       }); // Audio View
     }); // Views
   }; // tests
