@@ -9,10 +9,10 @@ require.config({
     text: 'scripts/components/requirejs-text/text',
     underscore: 'scripts/components/underscore/underscore',
     // testing framework paths
-    chai: 'lib/chai',
-    mocha: 'lib/mocha/mocha',
+    chai: 'scripts/components/chai/chai',
+    mocha: 'scripts/components/mocha/mocha',
     resources: 'sample_resources',
-    sinon: 'lib/sinon',
+    sinon: 'scripts/components/sinon/pkg/sinon',
     spec: 'spec'
   },
 
