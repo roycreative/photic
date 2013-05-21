@@ -3,3 +3,6 @@ dist
 components/*
 app/scripts/components/*
 .sass-cache/*
+node_modules/*
+.bowerrc
+.tmp/*

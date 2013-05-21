@@ -45,7 +45,7 @@ define(
       beforeEach(function() {
         photicModel = new PhoticModel(photicJson);
         photicView = new PhoticView({
-          el: $('#photic'),
+          el: $('.photicPlayer'),
           model: photicModel
         });
         photicView.render();
@@ -89,8 +89,7 @@ define(
 
         describe('Next button', function() {
           it('renders on load', function () {
-            assert.lengthOf($('a#next'), 1, 'a#next created');
-            assert.lengthOf($('i.icon-forward'), 1, 'i.icon-forward created');
+            assert.lengthOf($('a.nextArrow'), 1, 'a.nextArrow created');
           });
 
           it('moves to the next slide when clicked', function() {
@@ -98,7 +97,7 @@ define(
             assert.equal(slideImg.attr('src'),
                          'sample_resources/450x300.gif',
                          '.slide is first data point');
-            $('a#next').trigger('click');
+            $('a.nextArrow').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
                          'sample_resources/600x400.gif',
@@ -108,8 +107,7 @@ define(
 
         describe('Previous button', function() {
           it('renders on load', function () {
-            assert.lengthOf($('a#prev'), 1, 'a#prev created');
-            assert.lengthOf($('i.icon-backward'), 1, 'i.icon-backward created');
+            assert.lengthOf($('a.prevArrow'), 1, 'a.prevArrow created');
           });
 
           it('moves to the previous slide when clicked', function() {
@@ -118,13 +116,13 @@ define(
                          'sample_resources/450x300.gif',
                          '.slide is first data point');
             // move to the next slide
-            $('a#next').trigger('click');
+            $('a.nextArrow').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
                          'sample_resources/600x400.gif',
                          '.slide is second data point');
             // move to the previous slide
-            $('a#prev').trigger('click');
+            $('a.prevArrow').trigger('click');
             slideImg = $('.slide img');
             assert.equal(slideImg.attr('src'),
                          'sample_resources/450x300.gif',
@@ -134,12 +132,11 @@ define(
 
         describe('Play button', function() {
           it('renders on load', function () {
-            assert.lengthOf($('a#play'), 1, 'a#play created');
-            assert.lengthOf($('i.icon-play'), 1, 'i.icon-play created');
+            assert.lengthOf($('.currentSlide'), 1, 'a#play created');
           });
 
           it('starts the show from the beginning when clicked', function() {
-            var playBtn = $('a#play'),
+            var playBtn = $('.currentSlide'),
               audio = $('#audio')[0],
               played = audio.played;
             assert.isTrue(audio.paused, 'audio is not playing');
@@ -147,57 +144,19 @@ define(
             playBtn.trigger('click');
             assert.isFalse(audio.paused, 'audio is playing');
           });
-
-          it('becomes a Pause button when clicked', function() {
-            var playBtn = $('a#play');
-            var playIcon = $('i.icon-play');
-            assert.isTrue(playIcon.hasClass('icon-play'),
-                          'Has .icon-play before click');
-            assert.isFalse(playIcon.hasClass('icon-pause'),
-                           'No .icon-pause before click');
-            playBtn.trigger('click');
-            pauseIcon = $('i.icon-pause');
-            assert.isTrue(pauseIcon.hasClass('icon-pause'),
-                          'Has .icon-pause after click');
-            assert.isFalse(pauseIcon.hasClass('icon-play'),
-                           'No .icon-play after click');
-          });
         }); // Play button
 
         describe('Pause button', function() {
           it('pauses the slideshow and audio when clicked', function() {
-            var playBtn = $('a#play'),
+            var playBtn = $('.currentSlide'),
               audio = $('#audio')[0],
-              played = audio.played,
-              pauseBtn;
+              played = audio.played;
             assert.isTrue(audio.paused, 'audio is not playing');
             assert.equal(played.length, 0, 'audio has not been played');
             playBtn.trigger('click');
             assert.isFalse(audio.paused, 'audio is playing');
-            pauseBtn = $('a#pause');
-            pauseBtn.trigger('click');
-            assert.isTrue(audio.paused, 'audio is paused');
-          });
-
-          it('becomes a play button when clicked', function() {
-            var playBtn = $('a#play');
-            var playIcon = $('i.icon-play');
-            assert.isTrue(playIcon.hasClass('icon-play'),
-                          'Has .icon-play before Play click');
-            assert.isFalse(playIcon.hasClass('icon-pause'),
-                           'No .icon-pause before Play click');
             playBtn.trigger('click');
-            var pauseBtn = $('a#pause');
-            var pauseIcon = $('i.icon-pause');
-            assert.isTrue(pauseIcon.hasClass('icon-pause'),
-                          'Has .icon-pause after Play click');
-            assert.isFalse(pauseIcon.hasClass('icon-play'),
-                           'No .icon-play after Play click');
-            pauseBtn.trigger('click');
-            assert.isTrue(pauseIcon.hasClass('icon-play'),
-                          'Has .icon-play after Pause click');
-            assert.isFalse(pauseIcon.hasClass('icon-pause'),
-                           'No .icon-pause after Pause click');
+            assert.isTrue(audio.paused, 'audio is paused');
           });
         }); // Pause button
       }); // Photic Controls View
@@ -219,7 +178,7 @@ define(
 
         describe('Audio Elapsed View', function() {
           it('renders on load', function () {
-            var elapsed = $('#elapsed'),
+            var elapsed = $('.timeElapsed'),
               elapsedDisplay = $('#elapsedDisplay');
             assert.lengthOf(elapsed, 1, '#elapsed created');
             assert.lengthOf(elapsedDisplay, 1, '#elapsedDisplay created');
@@ -228,21 +187,12 @@ define(
 
         describe('Audio Progress View', function() {
           it('renders on load', function () {
-            var progress = $('#progress'),
-              progressBar = $('#progressBar');
+            var progress = $('#progressBar'),
+              progressBar = $('#progressIndicator');
             assert.lengthOf(progress, 1, '#progress created');
             assert.lengthOf(progressBar, 1, '#progressBar created');
           });
         }); // Audio Progress View
-
-        describe('Audio Volume View', function() {
-          it('renders on load', function () {
-            var volume = $('#volume'),
-              volumeBar = $('#volumeBar');
-            assert.lengthOf(volume, 1, '#volume created');
-            assert.lengthOf(volumeBar, 1, '#volumeBar created');
-          });
-        }); // Audio Volume View
       }); // Audio View
     }); // Views
   }; // tests
